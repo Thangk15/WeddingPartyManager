@@ -1,0 +1,85 @@
+#wedding-booking {
+    height: 100%;
+    padding: 0 50px;
+    position: relative;
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 20px 0;
+    margin: 0 100px;
+}
+
+.line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #ccc;
+    transform: translateY(-50%);
+    z-index: 0;
+}
+.current-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #4a7f18;
+    transform: translateY(-50%);
+    z-index: 1;
+    transition: width 0.4s ease;
+}
+
+.step {
+    position: relative;
+    z-index: 2;
+    font-size: 40px;
+    color: #ccc;
+}
+
+.step .bi-check-circle-fill {
+    color: #4a7f18; /* xanh lá */
+    z-index: 3;
+}
+
+.current-step {
+    color: #4a7f18 !important;
+}
+
+i {
+    background-color: #ffffff;
+}
+
+/* btn */
+
+.step-btns > button {
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+    margin: 40px 0;
+    position: absolute;
+    bottom: 0;
+}
+
+#back-btn {
+    left: 50px;
+    background-color: #4b63b7;
+}
+
+#next-btn {
+    right: 50px;
+    background-color: #008000;
+    
+}
+
+.hidden-btn {
+    display: none;
+}

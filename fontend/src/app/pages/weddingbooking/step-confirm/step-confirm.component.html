@@ -1,0 +1,75 @@
+<div id="step-comfirm" [formGroup]="form">
+    <h1>XÁC NHẬN THÔNG TIN ĐẶT TIỆC</h1>
+    <div id="wedding-info">
+        <div>
+            <strong>Tên chú rễ:</strong>
+            <p>{{getCustomerInfo.groomName}}</p>
+        </div>
+        <div>
+            <strong>Số lượng:</strong>
+            <p>{{getWeddingInfo.tableCount}}</p>
+        </div>
+        <div>
+            <strong>Ngày đãi tiệc:</strong>
+            <p>{{getWeddingInfo.weddingDate}}</p>
+        </div>
+        <div>
+            <strong>Tên cô dâu:</strong>
+            <p>{{getCustomerInfo.brideName}}</p>
+        </div>
+        <div>
+            <strong>Đơn giá bàn:</strong>
+        <p>{{getWeddingInfo.totalSelectedDishPrice}}</p>
+        </div>
+        <div>
+            <strong>Tổng tiền bàn:</strong>
+            <p>{{totalTablePrice}}</p>
+        </div>
+    </div>
+
+    <div>
+        <div id="service-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên dịch vụ</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr 
+                        *ngFor="let service of getServiceList; let i = index"
+                    >
+                        <td>{{i + 1}}</td>
+                        <td>{{service.name}}</td>
+                        <td>{{service.quantity}}</td>
+                        <td>{{service.price}}</td>
+                        <td>{{totalServicePrice(service.quantity, service.price)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="invoice-summary">
+            <div>
+                <strong>Tổng tiền dịch vụ:</strong>
+                <p>{{totalServicesPrice}}</p>
+            </div>
+            <div>
+                <strong>Tổng tiền hóa đơn:</strong>
+                <p>{{totalBill}}</p>
+            </div>
+            <div>
+                <strong>Tiền cọc (50%):</strong>
+                <p>{{deposit}}</p>
+            </div>
+            <div>
+                <strong>Còn lại:</strong>
+                <p>{{remainingAmount}}</p>
+            </div>
+        </div>
+    </div>
+</div>

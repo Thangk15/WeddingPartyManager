@@ -1,0 +1,65 @@
+#top-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#option-container {
+    padding: 0px 40px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#bar-chart-container {
+    padding-right: 40px;
+}
+
+#option-container label {
+    padding: 10px 0;
+    padding-right: 10px;
+}
+
+#input-container {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+}
+
+#input-container input {
+    height: 25px;
+    padding-left: 10px;
+}
+
+button {
+    margin-top: 10px;
+}
+
+#table-container {
+    display: flex;
+    flex-direction: row;
+    max-height: 212px;
+    justify-content: center;
+    overflow-y: auto;
+    margin: 0 40px;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    font-size: 18px;
+    font-weight: 700;
+    background-color: green;
+    color: #ffffff;
+    border: 2px solid black;
+}
+
+td {
+    text-align: center;
+    border: 2px solid black;
+}

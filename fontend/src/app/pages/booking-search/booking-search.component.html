@@ -1,0 +1,127 @@
+<div id="booking-search-container" *ngIf="!clickedDetail && !clickedPay && !clickedCancel">
+    <h1>DANH SÁCH ĐẶT TIỆC</h1>
+    <div id="key-search-container">
+        <div>
+            <label for="groom-name">Tên chú rễ:</label>
+            <input
+                id="groom-name"
+                type="text"
+                [(ngModel)]="selectedGroomName"
+            >
+        </div>
+
+        <div>
+            <label for="wedding-id">Mã tiệc cưới:</label>
+            <input
+                id="wedding-id"
+                type="text"
+                [(ngModel)]="selectedWeddingId"
+            >
+        </div>
+
+        <div>
+            <label for="hall">Sảnh:</label>
+            <select
+                name="hall"
+                id="hall"
+                [(ngModel)]="selectedHall"
+            >
+                <option value="">Không</option>
+                <option
+                    *ngFor="let hallData of hallDatas"
+                    [value]="hallData"
+                >
+                    {{hallData}}
+                </option>
+                
+            </select>
+        </div>
+
+        <div>
+            <label for="bride-name">Tên cô dâu:</label>
+            <input
+                id="bride-name"
+                type="text"
+                [(ngModel)]="selectedBrideName"
+            >
+        </div>
+
+        <div>
+            <label for="wedding-time">Ngày:</label>
+            <app-calendar
+                id="wedding-time"
+                [selectedDate]="myDate"
+                (selectedDateChange)="onDateChanged($event)"
+            ></app-calendar>
+        </div>
+
+        <div>
+            <label for="shift">Giờ</label>
+            <select 
+                name="shift"
+                id="shift"
+                [(ngModel)]="selectedShift"
+            >
+                <option value="">Không</option>
+                <option
+                    *ngFor="let shiftData of shiftDatas"
+                    [value]="shiftData"
+                >
+                    {{shiftData}}
+                </option>
+                
+            </select>
+        </div>
+
+    </div>
+    <div id="option-btn-container">
+        <button>Tra cứu</button>
+        <button (click)="reSearch()">Nhập lại</button>
+        <button (click)="seeDetail(selectedItem)">Xem chi tiết</button>
+        <button (click)="payBill(selectedItem)">Thanh toán</button>
+        <button (click)="cancelWedding(selectedItem)">Hủy</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th *ngFor="let headData of headDatas">{{headData}}</th>
+                </tr>
+            </thead> 
+            <tbody>
+                <tr 
+                    *ngFor="let data of datas; let id = index"
+                    [class.selected]="data === selectedItem"
+                    (click)="selectedItem = data"
+                >
+                    <td>{{ id + 1 }}</td>
+                    <td 
+                        *ngFor="let item of data | keyvalue : customSortFn"
+                    >
+                        {{ item.value }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<app-booking-detail 
+    *ngIf="clickedDetail" 
+    (back)="goBack()"
+></app-booking-detail>
+
+<app-pay-bills
+    type="cancel"
+    *ngIf="clickedCancel"
+    (back)="goBack()"
+> 
+</app-pay-bills>
+
+<app-pay-bills
+    type="pay"
+    *ngIf="clickedPay"
+    (back)="goBack()"
+> 
+</app-pay-bills>

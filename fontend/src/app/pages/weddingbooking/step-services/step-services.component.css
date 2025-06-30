@@ -1,0 +1,42 @@
+h1 {
+    text-align: center;
+    padding: 0px;
+    margin: 20px 0;
+    font-weight: 700;
+    color: #4b63b7;
+}
+/* table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.service-table {
+    max-height: 313px;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.service-table th:last-child {
+    width: 100px;
+}
+
+th {
+    font-size: 18px;
+    font-weight: 700;
+    background-color: green;
+    color: #ffffff;
+    border: 2px solid black;
+}
+
+td {
+    text-align: center;
+    border: 2px solid black;
+}
+
+.quantity-input {
+    width: 90%;
+    border: none;
+}

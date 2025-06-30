@@ -1,0 +1,153 @@
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+  background-color: #ebebeb;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header i {
+  font-size: 35px;
+  padding: 0 20px;
+}
+
+.app-header i:active {
+  color: green;
+}
+
+.layout-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.layout-logo img {
+  padding: 0 10px 0 20px;
+}
+
+.title-logo {
+  color: #4b63b7;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.app-body {
+  flex: 1;
+  display: flex;
+}
+
+.app-nav {
+  width: 200px;
+  background-color: #fffaf3;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
+  height: 100%;
+  background-color: #fff;
+  border: 1px solid black;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.nav-item:active {
+  color: green;
+}
+
+.nav-item i {
+  font-size: 24px;
+  width: 50px;
+  text-align: center;
+}
+
+.nav-item span {
+  padding-right: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.staff-icon {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+}
+
+.staff-icon i:first-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-38%, -40%);
+}
+
+.staff-icon i:last-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-62%, -60%);
+}
+
+.logout-container {
+  margin: 20px 23px;
+  position: relative;
+  flex: 1;
+  border: 4px solid #4b63b7;
+  background-color: #f9eafa;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.logout-container img {
+  width: 40px;
+  position: absolute;
+  background-color: #fffaf3;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.logout-container button {
+  width: 80%;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 5px;
+  position: absolute;
+  border: 2px solid #4b63b7;
+  background-color: red;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+a.disabled-nav {
+  pointer-events: none;
+  user-select: none;
+  cursor: default;
+  background-color: green;
+  color: #ffffff;
+  font-weight: 800;
+}
+

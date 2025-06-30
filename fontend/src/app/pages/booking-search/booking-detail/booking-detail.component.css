@@ -1,0 +1,128 @@
+#booking-detail-container {
+    height: 100%;
+    position: relative;
+    padding: 0 40px;
+}
+
+#booking-detail-container > strong {
+    display: block;
+    margin: 10px 0;
+    font-size: 17px;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    margin: 0;
+    font-weight: 700;
+    color: #4b63b7;
+}
+
+#booking-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 17px;
+    justify-content: space-between;
+}
+
+#booking-container i {
+    padding-left: 30px;
+    font-weight: 300;
+}
+
+/* ---------- */
+
+#customer-container {
+    display: grid;
+    column-gap: 80px;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 15px;
+    /* padding: 0 40px; */
+}
+
+#customer-container div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#customer-container strong {
+    font-weight: 500;
+}
+
+#customer-container i {
+    font-weight: 300;
+}
+
+/* ---------- */
+#wedding-container {
+    display: grid;
+    column-gap: 80px;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 15px;
+}
+
+#wedding-container div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 3px;
+}
+
+#wedding-container strong {
+    font-weight: 500;
+}
+
+#wedding-container i {
+    font-weight: 300;
+}
+
+/* ----------css table ----------------- */
+#tables-container {
+    display: grid;
+    column-gap: 50px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container {
+    width: 100%;
+    max-height: 189px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border: none;
+}
+
+th {
+    font-size: 18px;
+    font-weight: 700;
+    background-color: green;
+    color: #ffffff;
+    border: 2px solid black;
+}
+
+td {
+    text-align: center;
+    border: 2px solid black;
+}
+
+/* ----------------- */
+
+
+.pre-btn {
+    position: absolute;
+    bottom: 0px;
+    left: 40px;
+    transform: translate(0, -50%);
+    background-color: #4b63b7;
+    color: #ffffff;
+    height: 40px;
+    width: 130px;
+    border-radius: 8px;
+    font-size: 18px;
+}

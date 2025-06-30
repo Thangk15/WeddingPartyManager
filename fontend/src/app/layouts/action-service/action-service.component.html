@@ -1,0 +1,55 @@
+<div class="action-service">
+    <h2>{{getTitle}}</h2>
+    <label for="serviceName">Tên dịch vụ</label>
+    <input 
+        id="serviceName" 
+        type="text"
+        [(ngModel)]="enteredServiceName"
+    />
+    <label for="price">Đơn giá</label>
+    <input 
+        id="price" 
+        type="number"
+        min="0"
+        [(ngModel)]="enteredPrice"
+    />
+
+    <!-- <label for="job">Loại công việc</label>
+    <select
+        id="job"
+        [(ngModel)]="selectedJob"
+    >
+        <option
+            *ngFor="let job of jobs"
+            [value]="job"
+        >
+            {{job}}
+        </option>
+    </select> -->
+
+    <label for="job">Loại công việc</label>
+    <mat-form-field id="job" appearance="fill">
+        <mat-select [(value)]="selectedJob" panelClass="custom-select-panel">
+            <mat-option *ngFor="let job of jobs" [value]="job">
+            {{ job }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="option-btn">
+        <button
+            (click)="exit()"
+        >
+            Thoát
+        </button>
+        <button
+            (click)="save()"
+        >
+            Lưu
+        </button>
+    </div>
+
+</div>
+
+    <!-- <app-time-picker [(time)]="selectedTime"></app-time-picker>
+    <p>Giờ bạn đã chọn: {{ selectedTime }}</p> -->

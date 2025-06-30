@@ -1,0 +1,65 @@
+<div class="action-dish">
+    <h2>{{getTitle}}</h2>
+    <label for="dishName">Tên nhân viên</label>
+    <input 
+        id="dishName" 
+        type="text"
+        [(ngModel)]="enteredDishName"
+    />
+
+    <label for="price">Số điện thoại</label>
+    <input 
+        id="price" 
+        type="text"
+        min="10"
+        [(ngModel)]="enteredPhone"
+    />
+
+    <div class="sex-and-type">
+        <label for="sex">Giới tính</label>
+        <select
+            id="sex"
+            [(ngModel)]="selectedSex"
+        >
+            <option value="Không">Không</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+        </select>
+
+        <label for="type">Loại</label>
+        <select
+            id="type"
+            [(ngModel)]="selectedType"
+        >
+            <option value="Thời vụ">Thời vụ</option>
+            <option value="Toàn thời gian">Toàn thời gian</option>
+        </select>
+    </div>
+
+
+    <label for="job">Loại công việc</label>
+    <mat-form-field id="job" appearance="fill">
+        <mat-select [(value)]="selectedJob" panelClass="custom-select-panel">
+            <mat-option *ngFor="let job of jobs" [value]="job">
+            {{ job }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="option-btn">
+        <button
+            (click)="exit()"
+        >
+            Thoát
+        </button>
+        <button
+            (click)="save()"
+        >
+            Lưu
+        </button>
+    </div>
+
+</div>
+
+    <!-- <app-time-picker [(time)]="selectedTime"></app-time-picker>
+    <p>Giờ bạn đã chọn: {{ selectedTime }}</p> -->

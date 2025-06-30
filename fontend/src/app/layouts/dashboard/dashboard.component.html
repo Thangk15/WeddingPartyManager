@@ -1,0 +1,102 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="layout-logo">
+      <img
+        height="60px"
+        width="60px"
+        src="assets/imgs/logo-uit.svg" 
+        alt="logo-uit">
+      <div class="title-logo">
+        <div>UIT</div>
+        <div>Wedding Restaurant</div>
+      </div>
+    </div>
+    <i class="bi bi-gear-fill"></i>
+  </header>
+
+  <div class="app-body">
+    <nav class="app-nav">
+      <a
+        class="nav-item"
+        routerLink=""
+        routerLinkActive="active"
+        [class.disabled-nav]="isCurrentNav('/')"
+        (click)="preventIfCurrentNav($event, '/')"
+      >
+        <i class="bi bi-windows"></i>
+        <span>Trang chủ</span>
+      </a>
+      <a
+        class="nav-item"
+        routerLink="/wedding-booking"
+        routerLinkActive="active"
+        [class.disabled-nav]="isCurrentNav('/wedding-booking')"
+        (click)="preventIfCurrentNav($event, '/wedding-booking')"
+      >
+        <i class="bi bi-plus-lg"></i>
+        <span>Đặt tiệc cưới</span>
+      </a>
+      <a
+        class="nav-item"
+        routerLink="/booking-search"
+        routerLinkActive="active"
+        [class.disabled-nav]="isCurrentNav('/booking-search')"
+        (click)="preventIfCurrentNav($event, '/booking-search')"
+      >
+        <i class="bi bi-search"></i>
+        <span>Tra cứu tiệc</span>
+      </a>
+      <a 
+        class="nav-item"
+        routerLink="/category"
+        routerLinkActive="active"
+        [class.disabled-nav]="isCurrentNav('/category')"
+        (click)="preventIfCurrentNav($event, '/category')"
+      >
+        <i class="bi bi-list-ol"></i>
+        <span>Danh mục</span>
+      </a>
+      <a 
+        class="nav-item"
+        routerLink="/statistics"
+        routerLinkActive="active"
+        [class.disabled-nav]="isCurrentNav('/statistics')"
+        (click)="preventIfCurrentNav($event, '/statistics')"
+      >
+        <i class="bi bi-bar-chart-fill"></i>
+        <span>Thống kê</span>
+      </a>
+      <a
+        class="nav-item"
+        routerLink="/account"
+        routerLinkActive="active"
+        [class.disabled-nav]="isCurrentNav('/account')"
+        (click)="preventIfCurrentNav($event, '/account')"
+      >
+        <i class="bi bi-person-fill-gear"></i>
+        <span>Tài khoản</span>
+      </a>
+      <a
+        class="nav-item"
+        routerLink="/staffs"
+        routerLinkActive="active"
+        [class.disabled-nav]="isCurrentNav('/staffs')"
+        (click)="preventIfCurrentNav($event, '/staffs')"
+      >
+        <div class="staff-icon">
+          <i class="bi bi-person-fill"></i>
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <span>Nhân viên</span>
+      </a>
+      <a class="logout-container">
+        <img width="50px" src="assets/imgs/wedding1.png" alt="wedding">
+        <button (click)="logout()">Đăng xuất</button>
+      </a>
+    </nav>
+    <main class="app-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+

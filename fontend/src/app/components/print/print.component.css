@@ -1,0 +1,159 @@
+.payment-bill-wrapper {
+  padding: 10px;
+  background: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-y: auto; /* Hiển thị thanh cuộn khi cần */
+  max-height: 575px;
+}
+
+.bill-header {
+  height: 110px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bill-header img {
+  width: 100px;
+  height: 100px;
+}
+
+.bill-header > div:first-child {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bill-header > div:last-child {
+  height: 100%;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: right;
+}
+
+.contact-container {
+  margin: 0 20px;
+}
+
+.contact-container h2, p {
+  margin: 5px 0;
+}
+
+/*  */
+.line-layout {
+  border: 1px dashed #000000;
+  margin: 5px 0;
+}
+/*  */
+.payment-bill-wrapper h1 {
+  text-align: center;
+}
+
+.payment-bill-wrapper h3 {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.customer-info {
+  display: grid;
+  column-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  font-size: 16px;
+}
+
+.customer-info > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.bill-info {
+  display: grid;
+  column-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.bill-info > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* service */
+.service-table {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.service-table th,
+.service-table td {
+  padding: 5px 0px;
+  text-align: left;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+/* tổng hợp chi phí */
+.bill-total > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.payment-result > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/*  */
+.note {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.note-content {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  font-size: 16px;
+}
+
+/*  */
+
+.option-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+  
+}
+
+.option-btn > button:first-child {
+  width: 110px;
+  height: 40px;
+  background-color: red;
+  font-size: 16px;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.option-btn > button:last-child {
+  width: 110px;
+  height: 40px;
+  background-color: green;
+  font-size: 16px;
+  color: #ffffff;
+  border-radius: 5px;
+}
+

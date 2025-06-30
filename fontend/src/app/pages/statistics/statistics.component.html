@@ -1,0 +1,76 @@
+<div class="statistics-container">
+  <h1>THỐNG KÊ DOANH THU</h1>
+  <div id="top-container">
+    <div id="option-container">
+      <div>
+        <label>Thống kê theo: </label>
+        <select 
+          name="statistics"
+          id="statistics"
+          [(ngModel)]="selectedValue"
+        >
+          <option value="day">Ngày</option>
+          <option value="month">Tháng</option>
+        </select>
+      </div>
+      <div id="input-container">
+          <label *ngIf="selectedValue != 'month'">Tháng: </label>
+          <input
+              *ngIf="selectedValue != 'month'"
+              type="text"
+              [(ngModel)]="inputMonth"
+              placeholder="Nhập tháng..."
+          />
+        <label>Năm: </label>
+        <input
+            type="text"
+            [(ngModel)]="inputYear"
+            placeholder="Nhập năm..."
+        />
+      </div>
+      <button>Xem</button>
+      <p>Bạn đã chọn: {{ selectedValue }}</p>
+    </div>
+
+    <div id="bar-chart-container">
+      <app-bar-chart
+        [labels]="['1', '2', '3','4', '5', '6','7', '8', '9','10', '11', '12']"
+        [data]="[10, 20, 60, 10, 40, 30, 25, 20, 45, 18, 22, 30]"
+        title="Biểu đồ thống kê số lượng tiệc cưới theo tháng"
+        [width]="'700px'"
+        [height]="'250px'"
+        [Ox]="'Ngày (Tháng 6)'"
+        [Oy]="'Số lượng tiệc cưới'"
+      ></app-bar-chart>
+    </div>
+    
+  </div>
+
+  <div id="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Ngày</th>
+                    <th>Ca</th>
+                    <th>Mã tiệc cưới</th>
+                    <th>Mã sảnh</th>
+                    <th>Số lượng bàn</th>
+                    <th>Tình trạng</th>
+                </tr>
+            </thead> 
+            <tbody>
+                <tr *ngFor="let data of datas; let id = index">
+                    <td>{{ id + 1 }}</td>
+                    <td>{{ data.day }}</td>
+                    <td>{{ data.shift }}</td>
+                    <td>{{ data.idParty }}</td>
+                    <td>{{ data.weddingHall }}</td>
+                    <td>{{ data.nbOfTable }}</td>
+                    <td>{{ data.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

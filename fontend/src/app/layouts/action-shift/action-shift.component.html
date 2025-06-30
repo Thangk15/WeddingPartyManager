@@ -1,0 +1,33 @@
+<div class="action-shift">
+    <h2>{{getTitle}}</h2>
+    <label for="shiftName">Tên ca</label>
+    <input 
+        id="shiftName" 
+        type="text"
+        [(ngModel)]="enteredShiftName"
+    />
+    <label for="price">Giờ bắt đầu</label>
+    <div class="time-picker">
+        <app-time-picker [(time)]="selectedTime"></app-time-picker>
+    </div>
+    
+    <label for="price">Giờ bắt đầu</label>
+    <app-time-picker [(time)]="selectedTime"></app-time-picker>
+    
+
+    <div class="option-btn">
+        <button
+            (click)="exit()"
+        >
+            Thoát
+        </button>
+        <button
+            (click)="save()"
+        >
+            Lưu
+        </button>
+    </div>
+
+</div>
+
+    

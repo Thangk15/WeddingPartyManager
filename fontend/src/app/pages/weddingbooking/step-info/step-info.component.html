@@ -1,0 +1,117 @@
+<div id="step-info" [formGroup]="form">
+    <h3>Thông tin khách hàng</h3>
+    <div id="customer-info" formGroupName="customerInfo">
+        <div>
+            <label for="groom-name">Tên chú rễ</label>
+            <input 
+                id="groom-name" 
+                type="text" 
+                formControlName="groomName"
+            />
+        </div>
+        <div>
+            <label for="bride-name">Tên cô dâu</label>
+            <input 
+                id="bride-name" 
+                type="text" 
+                formControlName="brideName"
+            />
+        </div>
+        <div>
+            <label for="phone">Số điện thoại</label>
+            <input 
+                id="phone"
+                type="tel"
+                pattern="[0-9]{10,11}" 
+                maxlength="11"
+                inputmode="numeric"
+                formControlName="phoneNumber"
+            />
+        </div>
+        
+    </div>
+
+    <h3>Thông tin tiệc cưới</h3>
+    <div id="wedding-info" formGroupName="weddingInfo">
+        <div>
+            <label for="booking-date">Ngày đặt tiệc</label>
+            <div>
+                <app-calendar
+                    id="booking-date"
+                    [selectedDate]="bookingDate"
+                    [disabled]="true"
+                ></app-calendar>
+            </div>
+
+        </div>
+        <div>
+            <label for="wedding-date">Ngày đãi tiệc</label>
+            <div>
+                <app-calendar
+                    id="wedding-date"
+                    [selectedDate]="form.get('weddingInfo.weddingDate')?.value"
+                    (selectedDateChange)="form.get('weddingInfo.weddingDate')?.setValue($event)"
+                ></app-calendar>
+            </div>
+
+        </div>
+
+        <div>
+            <label for="time">Ca</label>
+            <select
+                id="time"
+                formControlName="shift"
+            >
+                <option value="">Chọn ca</option>
+                <option
+                    *ngFor="let time of times"
+                    [value]="time"
+                >
+                    {{time}}
+                </option>
+                
+            </select>
+        </div>
+
+        <div>
+            <label for="hall">Sảnh</label>
+            <select
+                name="hall"
+                id="hall"
+                formControlName="hallName"
+            >
+                <option value="">Chọn sảnh</option>
+                <option
+                    *ngFor="let hallData of hallDatas"
+                    [value]="hallData"
+                >
+                    {{hallData}}
+                </option>
+                
+            </select>
+        </div>
+        <div>
+            <label>Số lượng bàn</label>
+            <input 
+                type="number" 
+                min="0" max="100" 
+                step="1" 
+                formControlName="tableCount"
+            />
+        </div>
+        <div>
+            <label>Số lượng bàn dự trữ</label>
+            <input 
+                type="number" 
+                min="0" max="100" 
+                step="1" 
+                formControlName="reserveTableCount"
+            />
+        </div>
+        <div>
+            <label for="deposit">Tỷ lệ đặt cọc</label>
+            <input id="deposit" type="text" value="50%" disabled>
+        </div>
+    </div>
+    
+</div>

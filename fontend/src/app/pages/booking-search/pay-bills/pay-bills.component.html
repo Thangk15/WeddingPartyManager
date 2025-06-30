@@ -1,0 +1,101 @@
+<div id="pay-bills-container" *ngIf="!showPaymentBill">
+    <h1 *ngIf="type==='pay'">
+        XÁC NHẬN THÔNG TIN HÓA ĐƠN THANH TOÁN
+    </h1>
+    <h1 *ngIf="type==='cancel'">
+        XÁC NHẬN THÔNG TIN HÓA ĐƠN HỦY
+    </h1>
+    <div
+        class="date-container"
+        *ngIf="type==='pay'"
+    >
+        <div>
+            <strong>Ngày thanh toán:</strong>
+            <i>{{data.paymentDate}}</i>
+        </div>
+        <div>
+            <strong>Ngày đãi tiệc:</strong>
+            <i>{{data.weddingDate}}</i>
+        </div>
+    </div>
+    <div
+        class="date-container"
+        *ngIf="type==='cancel'"
+    >
+        <div>
+            <strong>Ngày hủy:</strong>
+            <i>{{data.cancelDate}}</i>
+        </div>
+        <div>
+            <strong>Số ngày hủy sớm:</strong>
+            <i>{{data.cancelDayCount}}</i>
+        </div>
+        <div>
+            <strong>Ngày đãi tiệc:</strong>
+            <i>{{data.weddingDate}}</i>            
+        </div>
+    </div>
+
+    <div id="detail-container">
+        <div>
+            <strong>Tên chú rễ:</strong>
+            <i>{{data.groomName}}</i>
+        </div>
+        <div>
+            <strong>Số lượng bàn:</strong>
+            <i>{{data.tableCount}}</i>
+        </div>
+        <div>
+            <strong>Tổng tiền bàn:</strong>
+            <i>{{data.totalTablePrice}}</i>            
+        </div>
+        <div>
+            <strong>Tên cô dâu:</strong>
+            <i>{{data.brideName}}</i>            
+        </div>
+        <div>
+            <strong>Đơn giá bàn:</strong>
+            <i>{{data.tablePrice}}</i>            
+        </div>
+        <div>
+            <strong>Tổng tiền dịch vụ:</strong>
+            <i>{{data.totalServicePrice}}</i>
+        </div>
+    </div>
+
+    <div class="invoice-summary">
+        <div>
+            <strong>Tổng tiền hóa đơn:</strong>
+            <i>{{totalPayment}}</i>
+        </div>
+        <div>   
+            <strong>{{'Tiền cọc (' + depositRate + '%):'}}</strong>
+            <i>{{deposit}}</i>
+        </div>
+        <div>   
+            <strong>Số tiền cần thanh toán: </strong>
+            <i>{{payableAmount}}</i>
+        </div>
+    </div>
+
+    <div id="btns-container">
+        <button
+            id="btn-back"
+            (click)="onBack()"
+        >
+            Quay lại
+        </button>
+        <button
+            id="btn-next"
+            (click)="openPaymentBill()"
+        >
+            Tiếp tục
+        </button>
+    </div>
+</div>
+
+<app-print *ngIf="showPaymentBill" (close)="closePaymentBill()">
+
+</app-print>
+
+

@@ -1,0 +1,28 @@
+<div id="home-container" *ngIf="!clickedBtn">  
+  <div class="layout-header">
+    <img 
+      src="assets/imgs/bg-restaurant.jpg"
+      alt="bg-restaurant"
+      height="200px">
+    <span>Welcome to UIT wedding restaurant</span>
+    <app-calendar></app-calendar>
+  </div>  
+  <app-bar-chart
+    [labels]="['1', '2', '3','4', '5', '6','7', '8', '9','10', '11', '12']"
+    [data]="[10, 20, 60, 10, 40, 30, 25, 20, 45, 18, 22, 30]"
+    title="Biểu đồ thống kê số lượng tiệc cưới theo tháng"
+    [width]="'1100px'"
+    [height]="'300px'"
+    [Ox]="'Ngày (Tháng 6)'"
+    [Oy]="'Số lượng tiệc cưới'"
+  ></app-bar-chart>
+  <div>
+
+  </div>
+  <button (click)="setClickedBtn()">Phân công công việc</button>
+</div>
+
+<app-choose-party
+  *ngIf="clickedBtn"
+  (back)="goBack()"
+></app-choose-party>

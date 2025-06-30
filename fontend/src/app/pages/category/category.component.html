@@ -1,0 +1,34 @@
+<div id="category-container" *ngIf="!selectedItem">
+  <h1>BẢNG DOANH MỤC</h1>
+  <div id="category-list">
+    <a
+      class="item-container"
+      *ngFor="let item of items"
+      (click)="onSelect(item)"
+    >
+      <img 
+          [src]="'assets/imgs/' + item.icon" 
+          [alt]="item.title" 
+          width="50" 
+          height="50"
+        />
+      <div class="item-title">
+        <h2>{{item.title}}</h2>
+      </div>
+      <div class="item-content">{{item.content}}</div>
+    </a>
+  </div>
+</div>
+
+<!-- Giao diện chi tiết -->
+<div class="item-list-container">
+  <app-item-list
+    [type]="selectedItem.id"
+    [listName]="selectedItem.title"
+    [nameIcon]="selectedItem.icon"
+    *ngIf="selectedItem"
+    (back)="goBack()"
+    [headDatas]="selectedItem.header"
+    [datas]="selectedItem.data"
+  ></app-item-list>
+</div>

@@ -1,0 +1,63 @@
+<div id="step-menu">
+    <h1>BẢNG THỰC ĐƠN</h1>
+    <label for="dishtype">Loại món ăn</label>
+    <select
+        id="dishtype"
+        [(ngModel)]="selectedType"
+    >
+        <option
+            *ngFor="let type of dishTypes"
+            [value]="type"
+        >
+            {{type}}
+        </option>
+    </select>
+
+    <div class="dish-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã món ăn</th>
+                    <th>Tên món ăn</th>
+                    <th>Đơn giá</th>
+                    <th>Chọn</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr 
+                    *ngFor="let dish of filteredDishs(selectedType); let i = index"
+                >
+                    <td>{{i + 1}}</td>
+                    <td>{{dish.id}}</td>
+                    <td>{{dish.name}}</td>
+                    <td>{{dish.price}}</td>
+                    <td>
+                        <input 
+                            type="checkbox" 
+                            [checked]="isChecked(dish.id)"
+                            (change)="toggleDishSelection(dish.id, getCheckedValue($event))"
+                        >
+                    </td>       
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div id="price-container">
+        <div>
+            <p>Đơn giá bàn tối thiểu: </p>
+            <p>{{3000000 | number:'1.0-0'}}</p>
+        </div>
+        <div>
+            <strong>Tổng đơn giá bàn hiện tại:</strong>
+            <p>{{totalSelectedDishPrice | number:'1.0-0'}}</p>
+        </div>
+    </div>
+    
+</div>
+

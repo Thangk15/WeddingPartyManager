@@ -1,0 +1,45 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  app-print, app-print * {
+    visibility: visible;
+    overflow-y: none;
+  }
+
+  app-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  button {
+    display: none !important; /* Ẩn nút khi in nếu cần */
+  }
+
+  .payment-bill-wrapper {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+}
+
+.mat-form-field .mat-input-element:disabled {
+  background-color: #eeeeee !important;
+  color: red !important;
+  font-weight: 500;
+  opacity: 1 !important;
+}

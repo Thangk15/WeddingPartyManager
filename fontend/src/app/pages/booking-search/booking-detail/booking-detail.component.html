@@ -1,0 +1,132 @@
+<div id="booking-detail-container">
+    <h1>THÔNG TIN ĐẶT TIỆC</h1>
+    <div id="booking-container">
+        <strong>
+            Mã phiếu đặt tiệc: <i>{{bookingData.weddingId}}</i>
+        </strong>
+        <strong>
+            Ngày đặt tiệc: <i>{{bookingData.bookingTime}}</i>
+        </strong>
+    </div>
+
+    <strong>Thông tin khách hàng:</strong>
+    <div id="customer-container">
+        <div>
+            <strong>Tên chú rễ:</strong>
+            <i>{{bookingData.groomName}}</i>
+        </div>
+        <div>
+            <strong>Tên cô dâu:</strong>
+            <i>{{bookingData.brideName}}</i>
+        </div>
+        <div>
+            <strong>SĐT:</strong>
+            <i>{{bookingData.phoneNumber}}</i>
+        </div>
+    </div>
+    <strong>Thông tin tiệc cưới:</strong>
+    <div id="wedding-container">
+        <div>
+            <strong>Ngày đãi tiệc:</strong>
+            <i>{{bookingData.weddingTime}}</i>
+        </div>
+        <div>
+            <strong>Ca:</strong>
+            <i>{{bookingData.shift}}</i>
+        </div>
+        <div>
+            <strong>Sảnh:</strong>
+            <i>{{bookingData.hall}}</i>
+        </div>
+        <div>
+            <strong>Số lượng bàn:</strong>
+            <i>{{bookingData.tableCount}}</i>
+        </div>
+        <div>
+            <strong>Số lượng bàn dự trữ:</strong>
+            <i>{{bookingData.reserveTableCount}}</i>
+        </div>
+        <div>
+            <strong>Đơn giá bàn:</strong>
+            <i>{{bookingData.tablePrice}}</i>
+        </div>
+        <div>
+            <strong>Tổng tiền bàn:</strong>
+            <i>{{bookingData.totalTablePrice}}</i>
+        </div>
+        <div>
+            <strong>Tổng tiền dịch vụ:</strong>
+            <i>{{bookingData.totalServicePrice}}</i>
+        </div>
+        <div>
+            <strong>Tiền cọc:</strong>
+            <i>{{bookingData.deposit}}</i>
+        </div>
+        <div>
+            <strong>Tổng tiền hóa đơn:</strong>
+            <i>{{bookingData.totalBill}}</i>
+        </div>
+        <div>
+            <strong>Tiền nợ:</strong>
+            <i>{{bookingData.RemainingBalance}}</i>
+        </div>
+    </div>
+
+    <div id="tables-container">
+        <h3>Danh sách món ăn</h3>
+        <h3>Danh sách dịch vụ</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th *ngFor="let headFood of headFoods">{{headFood}}</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr 
+                        *ngFor="let foodData of foodDatas; let id = index"
+                    >
+                        <td>{{ id + 1 }}</td>
+                        <td 
+                            *ngFor="let item of foodData | keyvalue : customSortFn"
+                        >
+                            {{ item.value }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th *ngFor="let headService of headServices">{{headService}}</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr 
+                        *ngFor="let service of services; let id = index"
+                    >
+                        <td>{{ id + 1 }}</td>
+                        <td 
+                            *ngFor="let item of service | keyvalue : customSortFnService"
+                        >
+                            {{ item.value }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="pre-btn-container">
+        <button 
+            class="pre-btn"
+            (click)="onBack()"
+        >
+            Quay lại
+        </button>
+    </div>
+</div>

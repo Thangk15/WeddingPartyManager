@@ -1,0 +1,59 @@
+<div id="wedding-booking">
+  <div class="step-header">
+    <div class="line"></div>
+    <div class="current-line" [style.width]="currentLineWidth"></div>
+
+    <ng-container *ngFor="let step of [].constructor(totalSteps); let i = index">
+      <div class="step">
+        <i
+          [ngClass]="{
+            'bi': true,
+            'bi-check-circle-fill': i + 1 < currentStep,
+            'bi-record-circle': i + 1 >= currentStep,
+            'current-step': i + 1 === currentStep
+          }"
+        ></i>
+      </div>
+    </ng-container>
+  </div>
+
+  <form *ngIf="form" [formGroup]="form">
+      <ng-container [ngSwitch]="currentStep" class="step-content">
+        <app-step-info *ngSwitchCase="1" [form]="form"></app-step-info>
+
+        <app-step-menu 
+          *ngSwitchCase="2"
+          [form]="form"
+          [selectedDishIdsFormArray]="selectedDishIdsFormArray">
+        </app-step-menu>
+
+        <app-step-services 
+          *ngSwitchCase="3"
+          [selectedServices]="selectedServices">
+        ></app-step-services>
+
+        <app-step-confirm 
+          *ngSwitchCase="4" 
+          [form]="form"
+          [selectedServices]="selectedServices"
+        ></app-step-confirm>
+      </ng-container>
+  </form>
+
+  <div class="step-btns">
+    <button
+    id="back-btn"
+      (click)="goBack()" 
+      [ngClass]="{'hidden-btn': currentStep === 1}"
+    >
+      Quay lại
+    </button>
+    <button
+      id="next-btn"
+      (click)="goNext()" 
+    >
+      Tiếp tục
+    </button>
+  </div>
+  <!-- <pre>{{ form.value | json }}</pre> -->
+</div>

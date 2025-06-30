@@ -1,0 +1,65 @@
+h1 {
+    text-align: center;
+    padding: 0px;
+    margin: 10px 0;
+    font-weight: 700;
+    color: #4b63b7;
+}
+
+label {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+select {
+    height: 35px;
+    width: 150px;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 2px solid #000000;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dish-table {
+    max-height: 194px;
+    overflow-y: auto;
+    padding: 0;
+    margin: 20px 0;
+}
+
+th {
+    font-size: 18px;
+    font-weight: 700;
+    background-color: green;
+    color: #ffffff;
+    border: 2px solid black;
+}
+
+td {
+    text-align: center;
+    border: 2px solid black;
+}
+
+/* price */
+
+#price-container {
+    width: 320px;
+}
+
+#price-container > div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 30px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}

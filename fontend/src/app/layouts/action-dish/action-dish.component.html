@@ -1,0 +1,45 @@
+<div class="action-dish">
+    <h2>{{getTitle}}</h2>
+    <label for="dishName">Tên món ăn</label>
+    <input 
+        id="dishName" 
+        type="text"
+        [(ngModel)]="enteredDishName"
+    />
+    <label for="dishtype">Loại món ăn</label>
+    <select
+        id="dishtype"
+        [(ngModel)]="selectedType"
+    >
+        <option
+            *ngFor="let type of dishTypes"
+            [value]="type"
+        >
+            {{type}}
+        </option>
+    </select>
+    <label for="price">Đơn giá</label>
+    <input 
+        id="price" 
+        type="number"
+        min="10"
+        [(ngModel)]="enteredPrice"
+    />
+
+    <div class="option-btn">
+        <button
+            (click)="exit()"
+        >
+            Thoát
+        </button>
+        <button
+            (click)="save()"
+        >
+            Lưu
+        </button>
+    </div>
+
+</div>
+
+    <!-- <app-time-picker [(time)]="selectedTime"></app-time-picker>
+    <p>Giờ bạn đã chọn: {{ selectedTime }}</p> -->

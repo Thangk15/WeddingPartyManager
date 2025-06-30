@@ -1,0 +1,115 @@
+#assign-staff {
+    padding: 0 50px;
+    height: 100%;
+    position: relative;
+}
+
+h3 {
+    margin: 5px 0;
+}
+
+h1 {
+    text-align: center;
+    padding: 0px;
+    margin: 10px 0;
+    font-weight: 700;
+    color: #4b63b7;
+}
+
+#wedding-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#wedding-info > strong {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+#service-list {
+    display: grid;
+    column-gap: 30px;
+    grid-template-columns: repeat(4, 1fr);
+    font-size: 16px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    overflow-y: auto;
+    max-height: 40px;
+}
+
+#service-list > strong {
+    text-align: center;
+    font-weight: 500;
+}
+
+/* table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.staff-table {
+    max-height: 194px;
+    overflow-y: auto;
+    padding: 0;
+    margin: 10px 0;
+}
+
+th {
+    font-size: 18px;
+    font-weight: 700;
+    background-color: green;
+    color: #ffffff;
+    border: 2px solid black;
+}
+
+td {
+    text-align: center;
+    border: 2px solid black;
+}
+/*  */
+#job-list {
+    display: grid;
+    column-gap: 30px;
+    grid-template-columns: repeat(4, 1fr);
+    font-size: 16px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    overflow-y: auto;
+    max-height: 40px;
+}
+
+#job-list > strong {
+    text-align: center;
+    font-weight: 500;
+}
+
+/* btn */
+.option-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+    right: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.option-btn > button {
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+#back-btn {
+    background-color: #4b63b7;
+}
+
+#check-btn {
+    background-color: #008000;
+}
