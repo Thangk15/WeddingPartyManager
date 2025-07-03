@@ -6,6 +6,8 @@ import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
 
 bootstrapApplication(AppComponent, {
   ...appConfig,
@@ -13,6 +15,7 @@ bootstrapApplication(AppComponent, {
     ...appConfig.providers,
     provideAnimations(),
     provideRouter(routes),
+    importProvidersFrom(HttpClientModule),
     provideNativeDateAdapter()
   ]
 });

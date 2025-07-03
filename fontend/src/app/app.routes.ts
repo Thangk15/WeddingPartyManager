@@ -11,35 +11,29 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { PrintComponent } from './components/print/print.component';
+import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
     {
         path: '',
         component: DashboardComponent,
+        canActivateChild: [authGuard],  // <=== THÊM DÒNG NÀY
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            {path: '', component: HomeComponent },
-            {path: 'category', component: CategoryComponent},
-            {path: 'wedding-booking', component: WeddingBookingComponent},
-            {path: 'booking-search', component: BookingSearchComponent},
-            {path: 'statistics', component: StatisticsComponent},
-            {path: 'staffs', component: StaffsComponent},
-            {path: 'account', component: AccountComponent},
-            
+            { path: '', component: HomeComponent },
+            { path: 'category', component: CategoryComponent },
+            { path: 'wedding-booking', component: WeddingBookingComponent },
+            { path: 'booking-search', component: BookingSearchComponent },
+            { path: 'statistics', component: StatisticsComponent },
+            { path: 'staffs', component: StaffsComponent },
+            { path: 'account', component: AccountComponent },
         ]
     },
     {
         path: 'login',
         component: AuthLayoutComponent,
         children: [
-            {path: '', component: LoginComponent}
-        ]
-    },
-    {
-        path: 'booking',
-        component: AuthLayoutComponent,
-        children: [
-            {path: 'print/:id', component: PrintComponent}
+            { path: '', component: LoginComponent }
         ]
     },
     { path: '**', redirectTo: '' }
