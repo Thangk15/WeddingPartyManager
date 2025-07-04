@@ -5,6 +5,7 @@
     [matDatepicker]="picker" 
     [(ngModel)]="dateModel"
     [disabled]="disabled"
+    [min]="minDate"
     (dateChange)="onDateChange($event)"
   />
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

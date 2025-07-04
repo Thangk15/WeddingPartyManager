@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { formatDateToDDMMYYYY } from '../format-date/format-date.component';
+import { formatDateToDDMMYYYY} from '../format-date/format-date.component';
 
 @Component({
   selector: 'app-calendar',
@@ -25,13 +25,16 @@ import { formatDateToDDMMYYYY } from '../format-date/format-date.component';
     MatInputModule,
     MatFormFieldModule
   ],
-  templateUrl: './calendar.component.html'
+  templateUrl: './calendar.component.html',
 })
 export class CalendarComponent implements OnChanges {
   /** Chuỗi ngày dưới dạng "dd/mm/yyyy" */
   @Input() selectedDate: string | null = null;
   /** Xuất ra cũng là "dd/mm/yyyy" */
   @Output() selectedDateChange = new EventEmitter<string>();
+
+  @Input() minDateStr: string | null = null;
+  minDate: Date | null = null;
 
   /** Model thực tế cho Datepicker */
   dateModel: Date | null = null;
@@ -42,6 +45,10 @@ export class CalendarComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedDate']) {
       this.dateModel = this.parseDateString(this.selectedDate);
+    }
+
+    if (changes['minDateStr']) {
+      this.minDate = this.parseDateString(this.minDateStr);
     }
   }
 

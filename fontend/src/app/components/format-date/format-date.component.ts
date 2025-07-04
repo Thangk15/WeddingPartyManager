@@ -5,3 +5,8 @@ export function formatDateToDDMMYYYY(date: Date): string {
   const year = d.getFullYear();
   return `${day}/${month}/${year}`;
 }
+
+export function parseDate(dateStr: string): Date {
+  const [dd, mm, yyyy] = dateStr.split('/');
+  return new Date(+yyyy, +mm - 1, +dd);
+}

@@ -21,12 +21,13 @@
             name="job"
             id="job-cbx"
             [(ngModel)]="selectedJob"
+            (change)="onSelectedJobChange()"
         >
             <option
-                *ngFor="let job of jobs"
-                [value]="job"
+                *ngFor="let job of congViecs"
+                [value]="job.id"
             >
-                {{job}}
+                {{job.tenCongViec}}
             </option>
             
         </select>
@@ -48,19 +49,19 @@
             </thead>
             <tbody>
                 <tr 
-                    *ngFor="let staff of filteredStaffs; let i = index"
+                    *ngFor="let staff of filterNhanVien; let i = index"
                 >
                     <td>{{i + 1}}</td>
-                    <td>{{staff.id}}</td>
-                    <td>{{staff.name}}</td>
-                    <td>{{staff.sex}}</td>
-                    <td>{{staff.type}}</td>
-                    <td>{{staff.phone}}</td>
+                    <td>{{staff.maNhanVien}}</td>
+                    <td>{{staff.tenNhanVien}}</td>
+                    <td>{{staff.gioiTinh}}</td>
+                    <td>{{staff.loaiNhanVien}}</td>
+                    <td>{{staff.sdt}}</td>
                     <td>
                         <input 
                             type="checkbox" 
-                            [(ngModel)]="staff.checked"
-                            (change)="onCheckboxChange(staff.checked, staff.id, selectedJob)"
+                            [(ngModel)]="staff.check"
+                            (change)="onCheckboxChange(staff.check, staff.maNhanVien)"
                         >
                     </td>       
                 </tr>

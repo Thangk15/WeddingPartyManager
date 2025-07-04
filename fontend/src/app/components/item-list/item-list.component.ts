@@ -45,6 +45,11 @@ export class ItemListComponent implements OnChanges {
     }
   }
 
+  handleClickedItem(item: any) {
+    this.selectedItem = item;
+    console.log('Đã chọn dòng:', item);
+  }
+
 
   searchTerm: string = '';
 
@@ -54,17 +59,17 @@ export class ItemListComponent implements OnChanges {
     this.search.emit(this.searchTerm);
   }
 
-  onAddHall() {
-      console.log('add-hall');
-  }
+  // onAddHall() {
+  //     console.log('add-hall');
+  // }
 
-  onEditHall() {
-      console.log('edit-hall');
-  }
+  // onEditHall() {
+  //     console.log('edit-hall');
+  // }
 
-  onDeleteHall() {
-      console.log('delete-hall');
-  }
+  // onDeleteHall() {
+  //     console.log('delete-hall');
+  // }
   // sắp xếp cột theo data mong muốn
   customSortFn = (a: any, b: any) => {
     var order = this.headDatas;

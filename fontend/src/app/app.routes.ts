@@ -17,7 +17,7 @@ export const routes: Routes = [
     {
         path: '',
         component: DashboardComponent,
-        canActivateChild: [authGuard],  // <=== THÊM DÒNG NÀY
+        canActivateChild: [authGuard],
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: '', component: HomeComponent },

@@ -1,7 +1,15 @@
 <div id="choose-party-container" *ngIf="!showAssignForm">
     <div id="calendar-container">
-        <app-calendar></app-calendar>
-        <app-calendar></app-calendar>
+        <app-calendar
+            [selectedDate]="selectedFromDate"
+            [minDateStr]="today"
+            (selectedDateChange)="onFromDateChange($event)">
+        ></app-calendar>
+        <app-calendar
+            [selectedDate]="selectedToDate"
+            [minDateStr]="minToDateStr()"
+            (selectedDateChange)="onToDateChange($event)">
+        ></app-calendar>
     </div>
 
     <div id="title">
@@ -23,14 +31,21 @@
                 </tr>
             </thead> 
             <tbody>
-                <tr *ngFor="let data of datas; let id = index">
+                <tr 
+                    *ngFor="let data of danhSachTiecCuoi; let id = index"
+                    [class.selected]="data === selectedItem"
+                    (click)="handleClickedItem(data)"
+                >
                     <td>{{ id + 1 }}</td>
-                    <td>{{ data.day }}</td>
-                    <td>{{ data.shift }}</td>
-                    <td>{{ data.idParty }}</td>
-                    <td>{{ data.weddingHall }}</td>
-                    <td>{{ data.nbOfTable }}</td>
-                    <td>{{ data.status }}</td>
+                    <td>{{ data.ngayDaiTiec | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ data.tenCa }}</td>
+                    <td>{{ data.maTiecCuoi }}</td>
+                    <td>{{ data.maSanh }}</td>
+                    <td>{{ data.soLuongBan }}</td>
+                    <td>
+                        {{ data.tinhTrangPhanCong == null ? 'Chưa phân công' :
+                         (data.tinhTrangPhanCong ? 'Đã phân công' : 'Chưa phân công') }}
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -41,6 +56,7 @@
 </div>
 
 <app-assign-staff 
-    *ngIf="showAssignForm" 
+    *ngIf="showAssignForm"
+    [data]="selectedItem"
     (backChooseParty)="outAssignForm()"
 ></app-assign-staff>

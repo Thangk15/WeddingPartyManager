@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { RouterLink, RouterLinkActive, RouterOutlet, Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @Component ({
     selector: 'app-dashboard',
@@ -10,7 +11,17 @@ import { RouterLink, RouterLinkActive, RouterOutlet, Router } from "@angular/rou
 })
 
 export class DashboardComponent {
-    constructor(private router: Router) {}
+    userName = '';
+    role = '';
+    constructor(private authService: AuthService, private router: Router) {
+        // const navigation = this.router.getCurrentNavigation();
+        // const state = navigation?.extras.state as { userName: string; role: string };
+
+        // if (state) {
+        // this.userName = state.userName;
+        // this.role = state.role;
+        // }
+    }
 
     isCurrentNav(path: string): boolean {
         return this.router.url === path;
@@ -23,7 +34,8 @@ export class DashboardComponent {
     }
 
     logout() {
-    // this.authService.clearToken(); // hoặc localStorage.clear()
+        this.authService.logout();
         this.router.navigate(['/login']);
     }
+
 }

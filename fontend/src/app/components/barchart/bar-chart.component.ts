@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -6,7 +6,7 @@ import Chart from 'chart.js/auto';
   standalone: true,
   templateUrl: './bar-chart.component.html'
 })
-export class BarChartComponent implements AfterViewInit {
+export class BarChartComponent implements OnChanges {
   @Input() labels: string[] = [];
   @Input() data: number[] = [];
   @Input() title: string = 'Biểu đồ';
@@ -15,61 +15,73 @@ export class BarChartComponent implements AfterViewInit {
   @Input() height: string = '100px';
   @Input() width: string = '100%';
   @Input() Ox: string = 'Trục hoành';
-  @Input() Oy: string = 'Trục trung';
+  @Input() Oy: string = 'Trục tung';
 
-  @ViewChild('barCanvas') barCanvas!: ElementRef;
+  @ViewChild('barCanvas', { static: true }) barCanvas!: ElementRef;
+  chart: Chart | null = null;
 
-  ngAfterViewInit(): void {
-    new Chart(this.barCanvas.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: this.labels,
-        datasets: [{
-          label: this.note,
-          data: this.data,
-          backgroundColor: this.color
-        }]
-      },
-      options: {
-        responsive: false,
-        scales: {
-            x: {
-            title: {
-                display: true,
-                text: this.Ox,
-                color: '#333',
-                font: {
-                size: 14,
-                weight: 'bold'
-                }
-            }
-            },
-            y: {
-            title: {
-                display: true,
-                text: this.Oy,
-                color: '#333',
-                font: {
-                size: 14,
-                weight: 'bold'
-                }
-            },
-            beginAtZero: true
-            }
+  ngOnChanges(changes: SimpleChanges): void {
+    // Nếu có thay đổi labels hoặc data, thì vẽ lại biểu đồ
+    if (changes['labels'] || changes['data']) {
+      this.drawChart();
+    }
+  }
+
+  drawChart() {
+  // Nếu có biểu đồ cũ thì hủy đi
+  if (this.chart) {
+    this.chart.destroy();
+  }
+
+  // 🔥 ÉP canvas có đúng width/height trước khi vẽ
+  const canvas = this.barCanvas.nativeElement as HTMLCanvasElement;
+  canvas.width = parseInt(this.width.replace('px', '')) || 500;
+  canvas.height = parseInt(this.height.replace('px', '')) || 400;
+
+  // Vẽ biểu đồ mới
+  this.chart = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: this.labels,
+      datasets: [{
+        data: this.data,
+        label: this.note,
+        backgroundColor: this.color
+      }]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: this.title,
+          font: {
+            size: 24,      // 👈 Font size tiêu đề (đổi tùy ý)
+            weight: 'bold' // 👈 Có thể thêm in đậm
+          },
         },
-        plugins: {
-          legend: { display: false },
-          title: { 
-            display: true, 
-            text: this.title,
-            color: 'black',
-            font: {
-                size: 24,
-                weight: 'bold',
-                
-            }  }
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: this.Ox
+          }
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: this.Oy
+          }
         }
       }
-    });
-  }
+    }
+  });
+}
+
 }

@@ -1,8 +1,36 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { count } from 'node:console';
+import { Observable } from 'rxjs';
+
+interface CongViec {
+  id: number;
+  tenCongViec: string;
+}
+
+interface NhanVien {
+  maNhanVien: number;
+  tenNhanVien: string;
+  gioiTinh: string;
+  loaiNhanVien: string;
+  sdt: string;
+  maCongViec: number;
+  maTiecCuoi: number;
+  check: boolean;
+}
+
+interface DichVuSuDung {
+  id: {
+    maDichVu: number,
+    maTiecCuoi: number,
+  },
+  soLuong: number,
+  donGiaDichVu: number,
+  thanhTien: number,
+}
 
 @Component({
   selector: 'app-assign-staff',
@@ -10,7 +38,8 @@ import { count } from 'node:console';
   templateUrl: './assign-staff.component.html',
   styleUrl: './assign-staff.component.css'
 })
-export class AssignStaffComponent {
+export class AssignStaffComponent implements OnInit{
+  @Input() data: any = null;
   wedding = {
     date: '26/06/2025',
     time: '11:00:00',
@@ -177,40 +206,35 @@ export class AssignStaffComponent {
   ]
 
   // Xử lý dữ liệu bảng
-  selectedJob: string = 'Đứng sảnh';
+  selectedJob: number = 1;
 
-  get filteredStaffs() {
-    return this.staffs.filter(item => item.job === '' || item.job === this.selectedJob);
-  }
+  // get filteredStaffs() {
+  //   return this.staffs.filter(item => item.job === '' || item.job === this.selectedJob);
+  // }
 
   get filteredJob() {
     return [...new Set((this.staffs.filter(item => item.job)).map(item => item.job))]
   }
 
   countStaffByRole(role: string) {
-
-    
     return this.staffs.filter(item => item.job === role).length;
   }
 
 
-  onCheckboxChange(isChecked: boolean, key: string, role: string) {
+  onCheckboxChange(isChecked: boolean, key: number) {
     if(isChecked) {
-      var newStaff = this.staffs.find(item => item.id === key)
-      if (newStaff) {
-        newStaff.job = role;
-      }
+      var newStaff = this.filterNhanVien.find(item => item.maNhanVien === key)
     }
     else {
-      var newStaff = this.staffs.find(item => item.id === key)
+      var newStaff = this.filterNhanVien.find(item => item.maNhanVien === key)
       if (newStaff) {
-        newStaff.job = '';
+        newStaff.check = true;
       }
     }
   }
 
   // Xử lý btn
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
   @Output() backChooseParty = new EventEmitter<void>();
 
   onBackChooseParty() {
@@ -220,6 +244,49 @@ export class AssignStaffComponent {
 
   onHome() {
     console.log('Go Home');
+    console.log(this.data);
     this.router.navigate(['/home']);
+  }
+  // Xử lý data Cong Viec
+
+  congViecs: CongViec[] = [];
+  nhanViens: NhanVien[] = [];
+  filterNhanVien: NhanVien[] = [];
+  dichVuSuDungs: DichVuSuDung[] = [];
+
+  ngOnInit(): void {
+    this.loadCongViecs();
+    this.loadNhanViens();
+  }
+
+  loadCongViecs(): void {
+    this.http.get<any[]>('http://localhost:8081/api/congviec').subscribe({
+      next: (data) => {
+        this.congViecs = data.map(cv => ({ ...cv, check: false }));
+        console.log('Dữ liệu công việc:', data);
+      },
+      error: (err) => {
+        console.error('Lỗi khi lấy công việc:', err);
+      }
+    });
+  }
+
+  loadNhanViens(): void {
+    this.http.get<any[]>('http://localhost:8081/api/nhanvien/chua-phan-cong').subscribe({
+      next: (data) => {
+        this.nhanViens = data;
+        console.log('Dữ liệu nhân viên chưa phân công:', data);
+        this.filterNhanVien = this.nhanViens.filter(nv => nv.maCongViec === +this.selectedJob);
+        console.log("load du lieu da loc",this.filterNhanVien)
+      },
+      error: (err) => {
+        console.error('Lỗi khi lấy nhân viên:', err);
+      }
+    });
+  }
+
+  onSelectedJobChange() {
+    this.filterNhanVien = this.nhanViens.filter(nv => nv.maCongViec === +this.selectedJob);
+    console.log("Dữ liệu nhân viên theo nghề: ", this.selectedJob, this.filterNhanVien);
   }
 }
