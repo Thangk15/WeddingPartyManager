@@ -4,12 +4,12 @@
     <input 
         id="dishName" 
         type="text"
-        [(ngModel)]="enteredDishName"
+        [(ngModel)]="model.tenMonAn"
     />
     <label for="dishtype">Loại món ăn</label>
     <select
         id="dishtype"
-        [(ngModel)]="selectedType"
+        [(ngModel)]="model.tenLoaiMonAn"
     >
         <option
             *ngFor="let type of dishTypes"
@@ -23,7 +23,7 @@
         id="price" 
         type="number"
         min="10"
-        [(ngModel)]="enteredPrice"
+        [(ngModel)]="model.donGia"
     />
 
     <div class="option-btn">
@@ -38,8 +38,4 @@
             Lưu
         </button>
     </div>
-
 </div>
-
-    <!-- <app-time-picker [(time)]="selectedTime"></app-time-picker>
-    <p>Giờ bạn đã chọn: {{ selectedTime }}</p> -->

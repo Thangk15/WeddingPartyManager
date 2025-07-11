@@ -1,16 +1,16 @@
 <div id="assign-staff">
     <h3>Thông tin tiệc cưới</h3>
     <div id="wedding-info">
-        <strong>Ngày đãi tiệc:   <span>{{wedding.date}}</span></strong>
-        <strong>Thời gian:   <span>{{wedding.time}}</span></strong>
-        <strong>Mã tiệc cưới:   <span>{{wedding.id}}</span></strong>
-        <strong>Mã sảnh:   <span>{{wedding.idHall}}</span></strong>
+        <strong>Ngày đãi tiệc:   <span>{{wedding.ngayDaiTiec}}</span></strong>
+        <strong>Thời gian:   <span>{{wedding.tenCa}}</span></strong>
+        <strong>Mã tiệc cưới:   <span>{{wedding.maTiecCuoi}}</span></strong>
+        <strong>Mã sảnh:   <span>{{wedding.maSanh}}</span></strong>
     </div>
-    <h3>Số lượng dịch vụ tiệc cưới sử dụng: </h3>
+    <h3>Số lượng công việc mà tiệc cưới cần: </h3>
     <div id="service-list">
-        <strong *ngFor="let service of services">
-            <span>{{service.count}}</span>
-            {{service.name}}
+        <strong *ngFor="let job of CongViecsCanThiet">
+            <span>{{job.soLuongDichVu}}</span>
+            {{job.tenCongViec}}
         </strong>
     </div>
 
@@ -25,7 +25,7 @@
         >
             <option
                 *ngFor="let job of congViecs"
-                [value]="job.id"
+                [value]="job.maCongViec"
             >
                 {{job.tenCongViec}}
             </option>
@@ -61,7 +61,7 @@
                         <input 
                             type="checkbox" 
                             [(ngModel)]="staff.check"
-                            (change)="onCheckboxChange(staff.check, staff.maNhanVien)"
+                            (change)="onCheckboxChange(staff.check, staff.maNhanVien, selectedJob)"
                         >
                     </td>       
                 </tr>
@@ -70,11 +70,11 @@
         </table>
     </div>
 
-    <h3>Số lượng nhân viên đã chọn:</h3>
+    <h3>Số lượng nhân viên đã chọn theo công việc:</h3>
     <div id="job-list">
-        <strong *ngFor="let role of filteredJob">
-            <span>{{countStaffByRole(role)}}</span>
-            {{role}}
+        <strong *ngFor="let job of CongViecsDaChon">
+            <span>{{job.phanCong}}</span>
+            {{job.tenCongViec}}
         </strong>
     </div>
 
@@ -87,7 +87,7 @@
         </button>
         <button 
             id="check-btn" 
-            (click)="onHome()"
+            (click)="comfirmAssign()"
         >
             Xác nhận
         </button>

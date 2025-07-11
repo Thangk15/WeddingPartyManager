@@ -8,6 +8,10 @@ import { routes } from './app/app.routes';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeVi from '@angular/common/locales/vi';
+
+registerLocaleData(localeVi, 'vi-VN');
 
 bootstrapApplication(AppComponent, {
   ...appConfig,

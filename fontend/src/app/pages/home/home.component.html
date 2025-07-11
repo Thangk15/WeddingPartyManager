@@ -1,4 +1,4 @@
-<div id="home-container" *ngIf="!clickedBtn">  
+<div id="home-container" *ngIf="currentStep === 1">  
   <div class="layout-header">
     <img 
       src="assets/imgs/bg-restaurant.jpg"
@@ -22,10 +22,12 @@
   <div>
 
   </div>
-  <button (click)="setClickedBtn()">Phân công công việc</button>
+  <button (click)="clickedBtn()">Phân công công việc</button>
 </div>
 
 <app-choose-party
-  *ngIf="clickedBtn"
+  *ngIf="currentStep === 2"
+  [currentStep]="2"
   (back)="goBack()"
+  (onBackHome)="goBack()"
 ></app-choose-party>

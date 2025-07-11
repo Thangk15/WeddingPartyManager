@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CalendarComponent } from "../../../components/calendar/calendar.component";
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-step-info',
   imports: [
     CalendarComponent, 
     NgFor,
+    NgClass,
     ReactiveFormsModule,
   ],
   templateUrl: './step-info.component.html',

@@ -4,7 +4,7 @@ import { StepInfoComponent } from "./step-info/step-info.component";
 import { StepMenuComponent } from "./step-menu/step-menu.component";
 import { StepServicesComponent } from "./step-services/step-services.component";
 import { StepConfirmComponent } from "./step-confirm/step-confirm.component";
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 
 @Component ({
     selector: 'app-wedding-booking',
@@ -34,18 +34,21 @@ export class WeddingBookingComponent  implements OnInit {
     ngOnInit() {
         this.form = this.fb.group({
             customerInfo: this.fb.group({
-                groomName: [''],
-                brideName: [''],
-                phoneNumber: [''],
+                groomName: ['', Validators.required],
+                brideName: ['', Validators.required],
+                phoneNumber: ['', [
+                                Validators.required,
+                                Validators.pattern('^[0-9]{10,11}$')
+                            ]],
             }),
 
             weddingInfo: this.fb.group({
 
-                weddingDate: [''],
-                shift: [''],
-                hallName: [''],
+                weddingDate: ['', Validators.required],
+                shift: ['', Validators.required],
+                hallName: ['', Validators.required],
                 tableCount: [0],
-                reserveTableCount: [''],
+                reserveTableCount: ['', Validators.required],
                 totalSelectedDishPrice: [0],
             }),
 
@@ -81,13 +84,27 @@ export class WeddingBookingComponent  implements OnInit {
         if (this.totalSteps <= 1) return '0%';
         const width = 33* (this.currentStep - 1);
         return `${width}%`;
+    }   
+
+    checkGroup(groupPath: string, label: string): boolean {
+        const group = this.form.get(groupPath);
+        if (group?.invalid) {
+            group.markAllAsTouched();
+            alert(`Vui lòng nhập đầy đủ ${label} hợp lệ.`);
+            return true;
+        }
+        return false;
     }
 
     goNext() {
-        if (this.currentStep < this.totalSteps) {
-        this.currentStep++;
+        if (this.currentStep == 1)
+        {
+            if (this.checkGroup('weddingInfo', 'thông tin tiệc cưới')) return;
+            if (this.checkGroup('customerInfo', 'thông tin khách hàng')) return;
         }
-        console.log(this.form.value)
+        if (this.currentStep < this.totalSteps) {
+            this.currentStep++;
+        }
     }
 
     goBack() {

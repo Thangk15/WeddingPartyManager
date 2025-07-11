@@ -2,10 +2,10 @@
     <h1>THÔNG TIN ĐẶT TIỆC</h1>
     <div id="booking-container">
         <strong>
-            Mã phiếu đặt tiệc: <i>{{bookingData.weddingId}}</i>
+            Mã phiếu đặt tiệc: <i>{{weddingData.maTiecCuoi}}</i>
         </strong>
         <strong>
-            Ngày đặt tiệc: <i>{{bookingData.bookingTime}}</i>
+            Ngày đặt tiệc: <i>{{formatMyDateDB(weddingData.ngayDat)}}</i>
         </strong>
     </div>
 
@@ -13,62 +13,62 @@
     <div id="customer-container">
         <div>
             <strong>Tên chú rễ:</strong>
-            <i>{{bookingData.groomName}}</i>
+            <i>{{weddingData.tenChuRe}}</i>
         </div>
         <div>
             <strong>Tên cô dâu:</strong>
-            <i>{{bookingData.brideName}}</i>
+            <i>{{weddingData.tenCoDau}}</i>
         </div>
         <div>
             <strong>SĐT:</strong>
-            <i>{{bookingData.phoneNumber}}</i>
+            <i>{{weddingData.sdt}}</i>
         </div>
     </div>
     <strong>Thông tin tiệc cưới:</strong>
     <div id="wedding-container">
         <div>
             <strong>Ngày đãi tiệc:</strong>
-            <i>{{bookingData.weddingTime}}</i>
+            <i>{{formatMyDateDB(weddingData.ngayDaiTiec)}}</i>
         </div>
         <div>
             <strong>Ca:</strong>
-            <i>{{bookingData.shift}}</i>
+            <i>{{weddingData.tenCa}}</i>
         </div>
         <div>
             <strong>Sảnh:</strong>
-            <i>{{bookingData.hall}}</i>
+            <i>{{weddingData.tenSanh}}</i>
         </div>
         <div>
             <strong>Số lượng bàn:</strong>
-            <i>{{bookingData.tableCount}}</i>
+            <i>{{weddingData.soLuongBan}}</i>
         </div>
         <div>
             <strong>Số lượng bàn dự trữ:</strong>
-            <i>{{bookingData.reserveTableCount}}</i>
+            <i>{{weddingData.soLuongBanDuTru}}</i>
         </div>
         <div>
             <strong>Đơn giá bàn:</strong>
-            <i>{{bookingData.tablePrice}}</i>
+            <i>{{+weddingData.donGiaBan | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
         </div>
         <div>
             <strong>Tổng tiền bàn:</strong>
-            <i>{{bookingData.totalTablePrice}}</i>
+            <i>{{weddingData.tongTienBan | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
         </div>
         <div>
             <strong>Tổng tiền dịch vụ:</strong>
-            <i>{{bookingData.totalServicePrice}}</i>
+            <i>{{weddingData.tongTienDichVu | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
         </div>
         <div>
             <strong>Tiền cọc:</strong>
-            <i>{{bookingData.deposit}}</i>
+            <i>{{weddingData.tienDatCoc | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
         </div>
         <div>
             <strong>Tổng tiền hóa đơn:</strong>
-            <i>{{bookingData.totalBill}}</i>
+            <i>{{weddingData.tongTienDatTiec | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
         </div>
         <div>
             <strong>Tiền nợ:</strong>
-            <i>{{bookingData.RemainingBalance}}</i>
+            <i>{{weddingData.conLai | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
         </div>
     </div>
 
@@ -84,14 +84,12 @@
                 </thead> 
                 <tbody>
                     <tr 
-                        *ngFor="let foodData of foodDatas; let id = index"
+                        *ngFor="let food of dishFoods; let id = index"
                     >
                         <td>{{ id + 1 }}</td>
-                        <td 
-                            *ngFor="let item of foodData | keyvalue : customSortFn"
-                        >
-                            {{ item.value }}
-                        </td>
+                        <td>{{food.tenLoaiMonAn}}</td>
+                        <td>{{food.tenMonAn}}</td>
+                        <td>{{food.donGiaMonAn | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -110,11 +108,10 @@
                         *ngFor="let service of services; let id = index"
                     >
                         <td>{{ id + 1 }}</td>
-                        <td 
-                            *ngFor="let item of service | keyvalue : customSortFnService"
-                        >
-                            {{ item.value }}
-                        </td>
+                        <td>{{service.tenDichVu}}</td>
+                        <td>{{service.soLuong}}</td>
+                        <td>{{service.gia | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</td>
+                        <td>{{totalService(service) | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</td>
                     </tr>
                 </tbody>
             </table>

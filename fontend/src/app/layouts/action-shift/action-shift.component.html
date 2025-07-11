@@ -4,15 +4,15 @@
     <input 
         id="shiftName" 
         type="text"
-        [(ngModel)]="enteredShiftName"
+        [(ngModel)]="model.tenCa"
     />
     <label for="price">Giờ bắt đầu</label>
     <div class="time-picker">
-        <app-time-picker [(time)]="selectedTime"></app-time-picker>
+        <app-time-picker [(time)]="gioBatDauValue"></app-time-picker>
     </div>
     
-    <label for="price">Giờ bắt đầu</label>
-    <app-time-picker [(time)]="selectedTime"></app-time-picker>
+    <label for="price">Giờ kết thúc</label>
+        <app-time-picker [(time)]="gioKetThucValue"></app-time-picker>
     
 
     <div class="option-btn">

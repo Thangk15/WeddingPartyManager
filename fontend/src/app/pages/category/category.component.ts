@@ -1,6 +1,60 @@
 import { NgFor, NgIf } from "@angular/common";
-import { Component } from "@angular/core";
+import { ChangeDetectorRef, Component, NgZone, OnInit, signal } from "@angular/core";
 import { ItemListComponent } from "../../components/item-list/item-list.component";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+
+interface Sanh {
+    maSanh: number;
+    tenSanh: string;
+    soLuongBanToiDa: number;
+    donGiaBanToiThieu: number;
+}
+
+interface MonAn {
+    maMonAn: number;
+    tenMonAn: string;
+    tenLoaiMonAn: string;
+    donGia: number;
+}
+
+interface DichVu {
+    maDichVu: number;
+    tenDichVu: string;
+    tenCongViec: string;
+    donGia: number;
+}
+
+interface Ca {
+    id: number;
+    tenCa: string;
+    gioBatDau: string;
+    gioKetThuc: string;
+}
+
+interface CongViec {
+    maCongViec: number;
+    tenCongViec: string;
+}
+
+export type ItemDataMap = {
+  hall: Sanh[];
+  dish: MonAn[];
+  service: DichVu[];
+  shift: Ca[];
+  job: CongViec[];
+};
+
+export type ItemID = keyof ItemDataMap;
+
+export type Item<K extends ItemID = ItemID> = {
+  id: K;
+  title: string;
+  icon: string;
+  content: string;
+  header: string[];
+  data: ItemDataMap[K];
+};
 
 @Component ({
     selector: 'app-category',
@@ -10,7 +64,9 @@ import { ItemListComponent } from "../../components/item-list/item-list.componen
     styleUrl: './category.component.css',
 })
 
-export class CategoryComponent {
+
+
+export class CategoryComponent implements OnInit{
     itemsName = [/* danh sách item như hiện tại */];
     selectedItem: any = null; // hoặc kiểu cụ thể nếu có
 
@@ -23,7 +79,8 @@ export class CategoryComponent {
     goBack() {
         this.selectedItem = null;
     }
-    items = [
+
+    items = signal<Item[]>([
         {
             id: 'hall',
             title: 'Danh sách sảnh',
@@ -31,178 +88,16 @@ export class CategoryComponent {
             content: 'Hiển thị danh sách của nhà hàng có thông'+
             ' tin: sảnh , loại sảnh, đơn giá tối thiểu,...',
             header: ['STT', 'Mã sảnh', 'Tên sảnh', 'Số lượng bàn tối đa', 'Đơn giá bàn tối thiểu'],
-            data: [
-                {
-                    id: 'SN0001',
-                    name: 'Cung điện ánh sáng',
-                    maxTableQuantity: 50,
-                    minTablePrice: 4000000
-                },
-                {
-                    id: 'SN0002',
-                    name: 'Rừng nguyên sinh',
-                    maxTableQuantity: 70,
-                    minTablePrice: 4000000
-                },
-                {
-                    id: 'SN0003',
-                    name: 'Sảnh đường hồi ức',
-                    maxTableQuantity: 90,
-                    minTablePrice: 4000000
-                },
-                {
-                    id: 'SN0004',
-                    name: 'Cung điện hoàng gia',
-                    maxTableQuantity: 60,
-                    minTablePrice: 4000000
-                },
-                {
-                    id: 'SN0005',
-                    name: 'Thảo nguyên nguyên sơ',
-                    maxTableQuantity: 80,
-                    minTablePrice: 4000000
-                },
-            ]
+            data: []
         },
-        // {
-        //     id: 'hall-type',
-        //     title: 'Danh sách loại sảnh',
-        //     icon: 'hall.png',
-        //     content: 'Hiển thị danh sách loại sảnh của nhà hàng'+
-        //     ' có thông tin: tên loại sảnh, đơn giá tối thiểu, ...',
-        //     header: ['STT', 'Mã sảnh', 'Tên sảnh', 'Số lượng bàn tối đa', 'Đơn giá bàn tối thiểu'],
-        //     data: [
-        //         {
-        //             id: 'SN0001',
-        //             name: 'Cung điện ánh sáng',
-        //             maxTableQuantity: 50,
-        //             minTablePrice: 4000000
-        //         },
-        //         {
-        //             id: 'SN0002',
-        //             name: 'Rừng nguyên sinh',
-        //             maxTableQuantity: 70,
-        //             minTablePrice: 4000000
-        //         },
-        //         {
-        //             id: 'SN0003',
-        //             name: 'Sảnh đường hồi ức',
-        //             maxTableQuantity: 90,
-        //             minTablePrice: 4000000
-        //         },
-        //         {
-        //             id: 'SN0004',
-        //             name: 'Cung điện hoàng gia',
-        //             maxTableQuantity: 60,
-        //             minTablePrice: 4000000
-        //         },
-        //         {
-        //             id: 'SN0005',
-        //             name: 'Thảo nguyên nguyên sơ',
-        //             maxTableQuantity: 80,
-        //             minTablePrice: 4000000
-        //         },
-        //     ]
-        // },
         {
             id: 'dish',
             title: 'Danh sách món ăn',
             icon: 'dish-food.png',
             content: 'Hiển thị danh sách món ăn của nhà hàng'+
             ' có thông tin: tên món ăn, đơn giá',
-            header: ['STT', 'Mã món ăn', 'Tên món ăn', 'Loại món ăn', 'Đơn giá'],
-            data: [
-                {
-                id: 'MA0001',
-                name: 'Tôm chiên HongKong',
-                type: 'Món chính',
-                price: 400000,
-                },
-                {
-                id: 'MA0002',
-                name: 'Gà quay HongKong',
-                type: 'Món chính',
-                price: 300000,
-                },
-                {
-                id: 'MA0003',
-                name: 'Chả 4 mùa',
-                type: 'Khai vị',
-                price: 300000,
-                },
-                {
-                id: 'MA0004',
-                name: 'Chả thành hôn',
-                type: 'Khai vị',
-                price: 300000,
-                },
-                {
-                id: 'MA0005',
-                name: 'Súp hạt sen',
-                type: 'Món chính',
-                price: 300000,
-                },
-                {
-                id: 'MA0006',
-                name: 'Bánh bao thịt tứ xuyên',
-                type: 'Món chính',
-                price: 300000,
-                },
-                {
-                id: 'MA0007',
-                name: 'Lẩu hải sản',
-                type: 'Món chính',
-                price: 400000,
-                },
-                {
-                id: 'MA0008',
-                name: 'Chè đậu biếc',
-                type: 'Tráng miệng',
-                price: 200000,
-                },
-                {
-                id: 'MA0009',
-                name: 'Bánh đông sương 4 mùa',
-                type: 'Tráng miệng',
-                price: 300000,
-                },
-                {
-                id: 'MA0010',
-                name: 'Gà Tần',
-                type: 'Món chính',
-                price: 500000,
-                },
-                {
-                id: 'MA0011',
-                name: 'Gỏi bò',
-                type: 'Món chính',
-                price: 500000,
-                },
-                {
-                id: 'MA0012',
-                name: 'Tôm chiên HongKong',
-                type: 'Món chính',
-                price: 300000,
-                },
-                {
-                id: 'MA0013',
-                name: 'Tôm chiên HongKong',
-                type: 'Món chính',
-                price: 300000,
-                },
-                {
-                id: 'MA0014',
-                name: 'Tôm chiên HongKong',
-                type: 'Món chính',
-                price: 300000,
-                },
-                {
-                id: 'MA0015',
-                name: 'Tôm chiên HongKong',
-                type: 'Món chính',
-                price: 300000,
-                },
-            ]
+            header: ['STT', 'Mã món ăn', 'Tên món ăn', 'Đơn Giá', 'Loại Món Ăn'],
+            data: []
         },
         {
             id: 'service',
@@ -210,89 +105,8 @@ export class CategoryComponent {
             icon: 'customer-service.png',
             content: 'Hiển thị danh sách dịch vụ của nhà hàng'+
             ' cung cấp thông tin: tên địch vụ, đơn giá, ...',
-            header: ['STT', 'Mã dịch vụ', 'Tên dịch vụ', 'Đơn giá'],
-            data: [
-            {
-            id: 'DV0001',
-            name: 'Dịch vụ trang trí',
-            price: 2000000,
-            },
-            {
-            id: 'DV0002',
-            name: 'Dịch vụ phục vụ',
-            price: 2000000,
-            },
-            {
-            id: 'DV0003',
-            name: 'Dịch vụ đứng sảnh',
-            price: 2000000,
-            },
-            {
-            id: 'DV0004',
-            name: 'Dịch vụ MC',
-            price: 2000000,
-            },
-            {
-            id: 'DV0005',
-            name: 'Dịch vụ phục vụ',
-            price: 2000000,
-            },
-            {
-            id: 'DV0006',
-            name: 'Dịch vụ đứng sảnh',
-            price: 2000000,
-            },
-            {
-            id: 'DV0007',
-            name: 'Dịch vụ MC',
-            price: 2000000,
-            },
-            {
-            id: 'DV0008',
-            name: 'Dịch vụ phục vụ',
-            price: 2000000,
-            },
-            {
-            id: 'DV0009',
-            name: 'Dịch vụ đứng sảnh',
-            price: 2000000,
-            },
-            {
-            id: 'DV0010',
-            name: 'Dịch vụ MC',
-            price: 2000000,
-            },
-            {
-            id: 'DV0011',
-            name: 'Dịch vụ phục vụ',
-            price: 2000000,
-            },
-            {
-            id: 'DV0012',
-            name: 'Dịch vụ đứng sảnh',
-            price: 2000000,
-            },
-            {
-            id: 'DV0013',
-            name: 'Dịch vụ MC',
-            price: 2000000,
-            },
-            {
-            id: 'DV0014',
-            name: 'Dịch vụ phục vụ',
-            price: 2000000,
-            },
-            {
-            id: 'DV0015',
-            name: 'Dịch vụ đứng sảnh',
-            price: 2000000,
-            },
-            {
-            id: 'DV0016',
-            name: 'Dịch vụ MC',
-            price: 2000000,
-            },
-            ]
+            header: ['STT', 'Mã dịch vụ', 'Tên dịch vụ', 'Đơn giá', 'Tên Công Việc'],
+            data: []
         },
         {
             id: 'shift',
@@ -301,53 +115,178 @@ export class CategoryComponent {
             content: 'Hiển thị danh sách ca của nhà hàng cung'+
             ' cấp thông tin: tên ca, thời gian bắt đầu, ...',
             header: ['STT', 'Mã ca', 'Tên ca', 'Giờ bắt đầu', 'Giờ kết thúc'],
-            data: [
-                {
-                    id: 'CA0001',
-                    name: 'Sáng',
-                    startTime: '7:00 AM',
-                    endTime: '10:00 AM'
-                },
-                {
-                    id: 'CA0002',
-                    name: 'Trưa',
-                    startTime: '11:00 AM',
-                    endTime: '2:00 PM'
-                },
-                {
-                    id: 'CA0003',
-                    name: 'Tối',
-                    startTime: '6:00 PM',
-                    endTime: '9:00 PM'
-                }
-            ]
-        },{
+            data: []
+        },
+        {
             id: 'job',
             title: 'Danh sách công việc',
             icon: 'job.png',
             content: 'Hiển thị danh sách công việc của nhà hàng'+
             ' cung cấp thông tin: tên công việc, tên dịch vụ',
-            header: ['STT', 'Mã công việc', 'Tên công việc', 'Mã dịch vụ', 'Tên công việc'],
-            data: [
-                {
-                    id: 'CV0001',
-                    name: 'Đứng sảnh',
-                    serviceId: 'DV0001',
-                    serviceName: 'Đứng sảnh đón tiếp'
-                },
-                {
-                    id: 'CV0002',
-                    name: 'Phục vụ',
-                    serviceId: 'DV0002',
-                    serviceName: 'Đứng phục vụ bàn'
-                },
-                {
-                    id: 'SN0003',
-                    name: 'MC',
-                    serviceId: 'DV0002',
-                    serviceName: 'Dịch vụ MC'
-                },
-            ]
+            header: ['STT', 'Mã công việc', 'Tên công việc'],
+            data: []
         }
-    ]
+
+    ])
+
+    constructor(private http: HttpClient) {};
+
+
+    ngOnInit() {
+        this.loadAllItems();
+    }
+
+    dataSources: { [K in ItemID]: string } = {
+        hall: 'http://localhost:8081/api/sanh',
+        dish: 'http://localhost:8081/api/monan',
+        service: 'http://localhost:8081/api/dichvu',
+        shift: 'http://localhost:8081/api/ca',
+        job: 'http://localhost:8081/api/congviec'
+    };
+
+    customMappers: Partial<{
+        [K in ItemID]: (data: any[]) => ItemDataMap[K];
+    }> = {
+        service: (data) => data.map(dv => ({
+            maDichVu: dv.maDichVu,
+            tenDichVu: dv.tenDichVu,
+            donGia: dv.donGia,
+            tenCongViec: dv.congViec?.tenCongViec || 'Không rõ'
+        }))
+    };
+
+    loadAllItems(): void {
+        (Object.keys(this.dataSources) as ItemID[]).forEach(id => {
+            this.http.get<any[]>(this.dataSources[id]).subscribe((data) => {
+            const mappedData = this.customMappers[id]?.(data) ?? data;
+
+            this.items.update(oldItems =>
+                oldItems.map(item =>
+                item.id === id ? { ...item, data: mappedData } : item
+                )
+            );
+            });
+        });
+    }
+
+    handlers: Record<ItemID, (data: any) => Observable<any>> = {
+        hall: (data: Sanh) => this.http.post('http://localhost:8081/api/sanh', data),
+        dish: (data: MonAn) => this.http.post('http://localhost:8081/api/monan', data),
+        service: (data: DichVu) => this.http.post('http://localhost:8081/api/dichvu', data),
+        shift: (data: Ca) => this.http.post('http://localhost:8081/api/ca', data),
+        job: (data: CongViec) => this.http.post('http://localhost:8081/api/congviec', data),
+    };
+
+    insertStatus = signal<'idle' | 'success' | 'fail'>('idle');
+    updateStatus = signal<'idle' | 'success' | 'fail'>('idle');
+
+    handleInsert(event: { key: string; data: any }) {
+        const validKeys: ItemID[] = ['hall', 'dish', 'service', 'shift', 'job'];
+        console.log('key, id, data: ', event.key, event.data)
+
+        if (validKeys.includes(event.key as ItemID)) {
+            const handler = this.handlers[event.key as ItemID];
+
+            handler(event.data).subscribe({
+                next: () => {
+                    alert('Thêm thành công!');
+                    this.insertStatus.set('success');
+                    this.loadAllItems();
+                    this.selectedItem = this.items().find(item => item.id === event.key) ?? null;
+                    console.log('selectedItem: ', this.selectedItem)
+                },
+                error: () => {
+                    alert('Thêm thất bại!');
+                    this.insertStatus.set('fail');
+                }
+            });
+        }
+    }
+
+    deleteHandlers: Record<ItemID, (id: number) => Observable<any>> = {
+        hall: (id: number) => this.http.delete(`http://localhost:8081/api/sanh/${id}`),
+        dish: (id: number) => this.http.delete(`http://localhost:8081/api/monan/${id}`),
+        service: (id: number) => this.http.delete(`http://localhost:8081/api/dichvu/${id}`),
+        shift: (id: number) => this.http.delete(`http://localhost:8081/api/ca/${id}`),
+        job: (id: number) => this.http.delete(`http://localhost:8081/api/congviec/${id}`)
+    };
+    
+
+    handleDelete(event: { key: string; id: number }) {
+        const itemId = event.key as ItemID;
+        const deleteFn = this.deleteHandlers[itemId];
+
+        if (deleteFn) {
+            if (confirm('Bạn có chắc chắn muốn xoá không?')) {
+                deleteFn(event.id).subscribe({
+                    next: (res) => {
+                        console.log('Response:', res);
+                        alert('Xoá thành công!');
+                        this.refreshSelectedItemData();
+                    },
+                    error: (err) => {
+                        console.error('Lỗi khi xoá:', err);
+                        alert('Xoá thất bại!');
+                    }
+                });
+
+            }
+        }
+    }
+
+    updateHandlers: Record<ItemID, (id: number, data: any) => Observable<any>> = {
+        hall: (id: number, data: any) => this.http.put(`http://localhost:8081/api/sanh/${id}`, data),
+        dish: (id: number, data: any) => this.http.put(`http://localhost:8081/api/monan/${id}`, data),
+        service: (id: number, data: any) => this.http.put(`http://localhost:8081/api/dichvu/${id}`, data),
+        shift: (id: number, data: any) => this.http.put(`http://localhost:8081/api/ca/${id}`, data),
+        job: (id: number, data: any) => this.http.put(`http://localhost:8081/api/congviec/${id}`, data)
+    };
+
+    handleUpdate(event: { key: string; id: number; data: any }) {
+        console.log('key, id, data: ', event.key, event.id, event.data)
+        const itemId = event.key as ItemID;
+        const updateFn = this.updateHandlers[itemId];
+
+        if (updateFn) {
+            if (confirm('Bạn có muốn cập nhật thông tin này không?')) {
+                updateFn(event.id, event.data).subscribe({
+                    next: (res) => {
+                        console.log('Update response:', res);
+                        alert('Cập nhật thành công!');
+                        this.updateStatus.set('success');
+                        this.refreshSelectedItemData();
+                    },
+                    error: (err) => {
+                        console.error('Lỗi khi cập nhật:', err);
+                        alert('Cập nhật thất bại!');
+                        this.updateStatus.set('fail');
+                    }
+                });
+            }
+        }
+    }
+
+
+
+    
+
+    refreshSelectedItemData() {
+        if (!this.selectedItem) return;
+        const itemId = this.selectedItem.id as ItemID;
+
+        const url = this.dataSources[itemId];
+        this.http.get<any[]>(url).subscribe(data => {
+            const mappedData = this.customMappers[itemId]?.(data) ?? data;
+
+            this.items.update(oldItems =>
+            oldItems.map(item =>
+                item.id === itemId ? { ...item, data: mappedData } : item
+            )
+            );
+
+            this.selectedItem = this.items().find(item => item.id === itemId) ?? null;
+        });
+    }
+
+
 }

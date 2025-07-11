@@ -11,98 +11,102 @@
     </div>
     
     <div>
-      <p>{{data.weddingId}}</p>
-      <p>{{data.billDate | date:'dd/MM/yyyy'}}</p>
-      <p>{{data.userName}}</p>
+      <p>{{weddingData.maTiecCuoi}}</p>
+      <p>{{billDate}}</p>
+      <p>{{weddingData.userName}}</p>
     </div>
     
   </div>
 
-  <h1>{{type}}</h1>
+  <h1 *ngIf="type==='cancel'">HÓA ĐƠN HỦY TIỆC</h1>
+  <h1 *ngIf="type==='pay'">HÓA ĐƠN THANH TOÁN TIỆC</h1>
+  <h1 *ngIf="type==='booking'">HÓA ĐƠN ĐẶT TIỆC</h1>
 
 
   <h3>Thông tin khách hàng:</h3>
   <div class="customer-info">
     <div>
       <strong>Tên chú rễ:</strong>
-      <p>{{data.groomName}}</p>
+      <p>{{weddingData.tenChuRe}}</p>
     </div>
     <div>
       <strong>Tên cô dâu:</strong>
-      <p>{{data.brideName}}</p>
+      <p>{{weddingData.tenCoDau}}</p>
     </div>
     <div>
       <strong>SĐT:</strong>
-      <p>{{data.phoneNumber}}</p>
+      <p>{{weddingData.sdt}}</p>
     </div>
   </div>
   <h3>Thông tin đặt tiệc:</h3>
   <div class="bill-info">
     <div>
       <strong>Ngày đãi tiệc: </strong>
-      <p>{{data.WeddingDate}}</p>
+      <p>{{formatDate(weddingData.ngayDaiTiec)}}</p>
     </div>
     <div>
       <strong>Thời gian: </strong>
-      <p>{{data.weddingTime}}</p>
+      <p>{{weddingData.gioBatDau}}</p>
     </div>
     <div>
       <strong>SL bàn: </strong>
-      <p>{{data.tableCount}}</p>
+      <p>{{weddingData.soLuongBan}}</p>
     </div>
     <div>
       <strong>Tên sảnh: </strong>
-      <p>{{data.hallName}}</p> 
+      <p>{{weddingData.tenSanh}}</p> 
     </div>
     <div>
       <strong>SL bàn dự trữ:</strong>
-      <p>{{data.reserveTableCount}}</p>
+      <p>{{weddingData.soLuongBanDuTru}}</p>
     </div>
     <div>
       <strong>Đơn giá bàn:</strong>
-      <p>{{data.tablePrice}}</p>
+      <p>{{weddingData.donGiaBan | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
     </div>
     
 
   </div> 
   <div class="line-layout"></div>
   <h3>Danh sách dịch vụ</h3>
+  <div class="service-table-container">
+    <table class="service-table">
+      <thead>
+        <tr>
+          <th>Tên dịch vụ</th>
+          <th>Số lượng</th>
+          <th class="text-right">Đơn giá</th>
+          <th class="text-right">Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let service of services">
+          <td>{{ service.name }}</td>
+          <td>{{ service.count }}</td>
+          <td class="text-right">{{ service.price | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</td>
+          <td class="text-right">{{ service.total | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <table class="service-table">
-    <thead>
-      <tr>
-        <th>Tên dịch vụ</th>
-        <th>Số lượng</th>
-        <th class="text-right">Đơn giá</th>
-        <th class="text-right">Thành tiền</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let service of services">
-        <td>{{ service.name }}</td>
-        <td>{{ service.count }}</td>
-        <td class="text-right">{{ service.price| number:'1.0-0' }}</td>
-        <td class="text-right">{{ service.total | number:'1.0-0' }}</td>
-      </tr>
-    </tbody>
-  </table>
   <div class="line-layout"></div>
   <div class="bill-total">
     <div>
       <strong>Tổng tiền dịch vụ:</strong>
-      <p>{{ servicePriceTotal | number:'1.0-0' }}</p>
+      <p>{{ servicePriceTotal | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
     </div>
     <div>
       <strong>Tổng tiền bàn:</strong>
-      <p>{{data.tableCount*data.tablePrice | number:'1.0-0' }}</p>
+      <p>{{weddingData.tongTienBan | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
     </div>
     <div>
       <strong>Tổng cộng:</strong>
-      <p>{{data.tableCount*data.tablePrice + servicePriceTotal | number:'1.0-0' }}</p>
+      <p>{{weddingData.tongTienDatTiec | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
     </div>
     <div>
-      <strong>Tiền cọc</strong>
-      <p>{{(data.tableCount*data.tablePrice + servicePriceTotal)*50/100 | number:'1.0-0' }}</p>
+      <strong>Tiền cọc:</strong>
+      <p>{{weddingData.tienDatCoc | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
     </div>
   </div>
 
@@ -110,12 +114,16 @@
 
   <div class="payment-result">
     <div>
+      <strong>Số tiền cần thanh toán:</strong>
+      <p>{{totalBill | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
+    </div>
+    <div>
       <strong>Tiền khách trả</strong>
-      <p>345345345</p>
+      <p>{{amountEntered | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
     </div>
     <div>
       <strong>Tiền thừa</strong>
-      <p>3453453453</p>
+      <p>{{changeAmount | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</p>
     </div>
   </div>
 
@@ -123,7 +131,7 @@
 
   <i class="note">Lưu ý:</i>
   <div class="note-content">
-    <i>Số tiền còn lại phải thanh toán là: 1238901$</i>
+    <i *ngIf="type==='booking'">Số tiền còn lại phải thanh toán là: 1238901$</i>
     <i>Hạn thanh toán là sau khi kết thúc bữa tiệc. Trong trường hợp thanh toán trễ sẽ bị phạt theo quy định.</i>
     <i>Trong trường hợp hủy đặt tiệc cưới thì phải trước 7 ngày trước khi tổ chức tiệc cưới (Không hoàn lại tiền cọc). Còn sau 7 ngày, thì bắt buộc phải thanh toán số tiền còn lại phải thanh toán.</i>
   </div>

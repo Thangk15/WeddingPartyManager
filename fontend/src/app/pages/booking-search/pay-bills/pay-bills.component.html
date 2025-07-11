@@ -11,11 +11,11 @@
     >
         <div>
             <strong>Ngày thanh toán:</strong>
-            <i>{{data.paymentDate}}</i>
+            <i>{{myDate}}</i>
         </div>
         <div>
             <strong>Ngày đãi tiệc:</strong>
-            <i>{{data.weddingDate}}</i>
+            <i>{{formatMyDateDB(weddingData.ngayDaiTiec)}}</i>
         </div>
     </div>
     <div
@@ -24,57 +24,71 @@
     >
         <div>
             <strong>Ngày hủy:</strong>
-            <i>{{data.cancelDate}}</i>
+            <i>{{myDate}}</i>
         </div>
         <div>
             <strong>Số ngày hủy sớm:</strong>
-            <i>{{data.cancelDayCount}}</i>
+            <i>{{daysBetween}}</i>
         </div>
         <div>
             <strong>Ngày đãi tiệc:</strong>
-            <i>{{data.weddingDate}}</i>            
+            <i>{{formatMyDateDB(weddingData.ngayDaiTiec)}}</i>            
         </div>
     </div>
 
     <div id="detail-container">
         <div>
             <strong>Tên chú rễ:</strong>
-            <i>{{data.groomName}}</i>
+            <i>{{weddingData.tenChuRe}}</i>
         </div>
         <div>
             <strong>Số lượng bàn:</strong>
-            <i>{{data.tableCount}}</i>
+            <i>{{weddingData.soLuongBan}}</i>
         </div>
         <div>
             <strong>Tổng tiền bàn:</strong>
-            <i>{{data.totalTablePrice}}</i>            
+            <i>{{weddingData.tongTienBan | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>            
         </div>
         <div>
             <strong>Tên cô dâu:</strong>
-            <i>{{data.brideName}}</i>            
+            <i>{{weddingData.tenCoDau}}</i>            
         </div>
         <div>
             <strong>Đơn giá bàn:</strong>
-            <i>{{data.tablePrice}}</i>            
+            <i>{{weddingData.donGiaBan | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>            
         </div>
         <div>
             <strong>Tổng tiền dịch vụ:</strong>
-            <i>{{data.totalServicePrice}}</i>
+            <i>{{weddingData.tongTienDichVu | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
         </div>
     </div>
 
-    <div class="invoice-summary">
-        <div>
-            <strong>Tổng tiền hóa đơn:</strong>
-            <i>{{totalPayment}}</i>
+    <div class="payment-container">
+        <div class="invoice-summary">
+            <div>
+                <strong>Tổng tiền hóa đơn:</strong>
+                <i>{{weddingData.tongTienDatTiec | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
+            </div>
+            <div>   
+                <strong>{{'Tiền cọc (' + depositRate + '%):'}}</strong>
+                <i>{{weddingData.tienDatCoc | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
+            </div>
+            <div>   
+                <strong>Số tiền cần thanh toán: </strong>
+                <i>{{totalBill | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
+            </div>
         </div>
-        <div>   
-            <strong>{{'Tiền cọc (' + depositRate + '%):'}}</strong>
-            <i>{{deposit}}</i>
-        </div>
-        <div>   
-            <strong>Số tiền cần thanh toán: </strong>
-            <i>{{payableAmount}}</i>
+
+        <div class="amount-enter">
+            <div>
+                <label for="payment">Nhập số tiền thanh toán</label>
+                <i>{{amountEntered | currency:'VND':'symbol':'1.0-0':'vi-VN'}}</i>
+            </div>
+            <input
+                id="payment"
+                type="number"
+                [(ngModel)]="amountEntered"
+            />
         </div>
     </div>
 
@@ -89,13 +103,20 @@
             id="btn-next"
             (click)="openPaymentBill()"
         >
-            Tiếp tục
+            Thanh toán
         </button>
     </div>
 </div>
 
-<app-print *ngIf="showPaymentBill" (close)="closePaymentBill()">
-
+<app-print 
+    *ngIf="showPaymentBill"
+    [weddingData]="weddingData"
+    [amountEntered]="amountEntered"
+    [totalBill]="totalBill"
+    [billDate]="myDate"
+    [type]="type"
+    (close)="closePaymentBill()"
+>
 </app-print>
 
 

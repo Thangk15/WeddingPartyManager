@@ -28,10 +28,10 @@
             >
                 <option value="">Không</option>
                 <option
-                    *ngFor="let hallData of hallDatas"
-                    [value]="hallData"
+                    *ngFor="let hall of hallData"
+                    [value]="hall.tenSanh"
                 >
-                    {{hallData}}
+                    {{hall.tenSanh}}
                 </option>
                 
             </select>
@@ -43,14 +43,14 @@
                 id="bride-name"
                 type="text"
                 [(ngModel)]="selectedBrideName"
-            >
+            />
         </div>
 
         <div>
             <label for="wedding-time">Ngày:</label>
             <app-calendar
                 id="wedding-time"
-                [selectedDate]="myDate"
+                [selectedDate]="selectedWeddingDate"
                 (selectedDateChange)="onDateChanged($event)"
             ></app-calendar>
         </div>
@@ -64,10 +64,10 @@
             >
                 <option value="">Không</option>
                 <option
-                    *ngFor="let shiftData of shiftDatas"
-                    [value]="shiftData"
+                    *ngFor="let data of shiftData"
+                    [value]="data.gioBatDau"
                 >
-                    {{shiftData}}
+                    {{data.gioBatDau}}
                 </option>
                 
             </select>
@@ -75,7 +75,7 @@
 
     </div>
     <div id="option-btn-container">
-        <button>Tra cứu</button>
+        <button (click)="searchWedding()">Tra cứu</button>
         <button (click)="reSearch()">Nhập lại</button>
         <button (click)="seeDetail(selectedItem)">Xem chi tiết</button>
         <button (click)="payBill(selectedItem)">Thanh toán</button>
@@ -91,16 +91,19 @@
             </thead> 
             <tbody>
                 <tr 
-                    *ngFor="let data of datas; let id = index"
+                    *ngFor="let data of filterWeddingData; let id = index"
                     [class.selected]="data === selectedItem"
                     (click)="selectedItem = data"
                 >
                     <td>{{ id + 1 }}</td>
-                    <td 
-                        *ngFor="let item of data | keyvalue : customSortFn"
-                    >
-                        {{ item.value }}
-                    </td>
+                    <td>{{data.maTiecCuoi}}</td>
+                    <td>{{data.tenChuRe}}</td>
+                    <td>{{data.tenCoDau}}</td>
+                    <td>{{data.tenSanh}}</td>
+                    <td>{{data.ngayDaiTiec}}</td>
+                    <td>{{data.gioBatDau}}</td>
+                    <td>{{data.soLuongBan}}</td>
+                    <td>{{data.userName}}</td>
                 </tr>
             </tbody>
         </table>
@@ -108,14 +111,16 @@
 </div>
 
 <app-booking-detail 
-    *ngIf="clickedDetail" 
+    *ngIf="clickedDetail"
     (back)="goBack()"
+    [weddingData]="selectedItem"
 ></app-booking-detail>
 
 <app-pay-bills
     type="cancel"
     *ngIf="clickedCancel"
     (back)="goBack()"
+    [weddingData]="selectedItem"
 > 
 </app-pay-bills>
 
@@ -123,5 +128,6 @@
     type="pay"
     *ngIf="clickedPay"
     (back)="goBack()"
+    [weddingData]="selectedItem"
 > 
 </app-pay-bills>

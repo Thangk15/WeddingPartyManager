@@ -1,13 +1,14 @@
 import { NgFor } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { count } from 'node:console';
+import { EntryType } from 'node:perf_hooks';
 import { Observable } from 'rxjs';
 
 interface CongViec {
-  id: number;
+  maCongViec: number;
   tenCongViec: string;
 }
 
@@ -22,14 +23,26 @@ interface NhanVien {
   check: boolean;
 }
 
-interface DichVuSuDung {
-  id: {
-    maDichVu: number,
-    maTiecCuoi: number,
-  },
-  soLuong: number,
-  donGiaDichVu: number,
-  thanhTien: number,
+interface CongViecCanChoTiecCuoi {
+  maCongViec: number;
+  tenCongViec: string;
+  soLuongDichVu: number;
+}
+
+interface CongViecDaChon {
+  maCongViec: number;
+  tenCongViec: string;
+  soLuongDichVu: number;
+  phanCong: number;
+}
+
+interface TiecCuoi {
+  maSanh: number;
+  maTiecCuoi: number;
+  ngayDaiTiec: string;
+  tenCa: string;
+  soLuongBan: number;
+  tinhTrangPhanCong: boolean;
 }
 
 @Component({
@@ -39,198 +52,32 @@ interface DichVuSuDung {
   styleUrl: './assign-staff.component.css'
 })
 export class AssignStaffComponent implements OnInit{
-  @Input() data: any = null;
-  wedding = {
-    date: '26/06/2025',
-    time: '11:00:00',
-    id: 'TC0001',
-    idHall: 'SN0001',
-  };
-
-  services = [
-    {name: 'Dịch vụ MC', count: 1},
-    {name: 'Dịch vụ phục vụ', count: 5},
-    {name: 'Dịch vụ trang trí', count: 1},
-    {name: 'Dịch vụ đứng sảnh', count: 1},
-    {name: 'Dịch vụ MC', count: 1},
-    {name: 'Dịch vụ phục vụ', count: 5},
-    {name: 'Dịch vụ trang trí', count: 1},
-    {name: 'Dịch vụ đứng sảnh', count: 1},
-    {name: 'Dịch vụ MC', count: 1},
-    {name: 'Dịch vụ phục vụ', count: 5},
-    {name: 'Dịch vụ trang trí', count: 1},
-    {name: 'Dịch vụ đứng sảnh', count: 1},
-    {name: 'Dịch vụ MC', count: 1},
-    {name: 'Dịch vụ phục vụ', count: 5},
-    {name: 'Dịch vụ trang trí', count: 1},
-    {name: 'Dịch vụ đứng sảnh', count: 1},
-    {name: 'Dịch vụ MC', count: 1},
-    {name: 'Dịch vụ phục vụ', count: 5},
-    {name: 'Dịch vụ trang trí', count: 1},
-    {name: 'Dịch vụ đứng sảnh', count: 1},
-
-  ]
-
-  jobs = [
-    'Đứng sảnh', 'MC', 'Phục vụ', 'Trang trí'
-  ];
-
-
-  staffs = [
-    {
-      id: 'NV0001', 
-      name: 'le tan thhuan', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0002', 
-      name: 'Ng thanh cong', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: true,
-      job: 'Đứng sảnh',
-    },
-    {
-      id: 'NV0003', 
-      name: 'Ng Hoai My', 
-      sex: 'nu', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0004', 
-      name: 'le tan thhuan', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: true,
-      job: 'MC',
-    },{
-      id: 'NV0005', 
-      name: 'le tan thhuan', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0006', 
-      name: 'Ng thanh cong', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0007', 
-      name: 'Ng Hoai My', 
-      sex: 'nu', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0008', 
-      name: 'le tan thhuan', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0009', 
-      name: 'Ng thanh cong', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0010', 
-      name: 'Ng Hoai My', 
-      sex: 'nu', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0011', 
-      name: 'le tan thhuan', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0012', 
-      name: 'Ng thanh cong', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0013', 
-      name: 'Ng Hoai My', 
-      sex: 'nu', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    },
-    {
-      id: 'NV0014', 
-      name: 'le tan thhuan', 
-      sex: 'nam', 
-      type: 'Thời vụ',
-      phone: '0914059332',
-      checked: false,
-      job: '',
-    }
-
-  ]
+  @Input() wedding: any;
 
   // Xử lý dữ liệu bảng
   selectedJob: number = 1;
 
-  // get filteredStaffs() {
-  //   return this.staffs.filter(item => item.job === '' || item.job === this.selectedJob);
-  // }
-
-  get filteredJob() {
-    return [...new Set((this.staffs.filter(item => item.job)).map(item => item.job))]
-  }
-
-  countStaffByRole(role: string) {
-    return this.staffs.filter(item => item.job === role).length;
-  }
-
-
-  onCheckboxChange(isChecked: boolean, key: number) {
-    if(isChecked) {
-      var newStaff = this.filterNhanVien.find(item => item.maNhanVien === key)
+  onCheckboxChange(isChecked: boolean, key: number, jobId: number) {
+    console.log("wedding: ", this.wedding);
+    const newStaff = this.filterNhanVien.find(item => item.maNhanVien === key);
+    const listNhanVienDaChon = this.nhanViens.find(item => item.maNhanVien === key);
+    if (newStaff) {
+      newStaff.check = isChecked; // Gán trực tiếp theo trạng thái checkbox
+      
     }
-    else {
-      var newStaff = this.filterNhanVien.find(item => item.maNhanVien === key)
-      if (newStaff) {
-        newStaff.check = true;
-      }
+    if (listNhanVienDaChon)
+      listNhanVienDaChon.check = isChecked;
+    
+    var count = this.filterNhanVien.filter(item =>item.check).length;
+    // console.log("Số nhân viên đã chọn cho công việc này: ", count);
+    // console.log("ds cong viec da chon: ", this.CongViecsDaChon);
+    const congViec = this.CongViecsDaChon.find(item => item.maCongViec === Number(jobId));
+    if (congViec) {
+      congViec.phanCong = count;
+      // console.log("Dữ liệu công việc đã chọn: ", congViec);
     }
+    console.log("Dữ liệu công việc đã chọn: ", congViec);
+
   }
 
   // Xử lý btn
@@ -241,29 +88,40 @@ export class AssignStaffComponent implements OnInit{
     console.log('Go Back');
     this.backChooseParty.emit();
   }
-
-  onHome() {
-    console.log('Go Home');
-    console.log(this.data);
-    this.router.navigate(['/home']);
-  }
   // Xử lý data Cong Viec
 
   congViecs: CongViec[] = [];
   nhanViens: NhanVien[] = [];
   filterNhanVien: NhanVien[] = [];
-  dichVuSuDungs: DichVuSuDung[] = [];
+  CongViecsCanThiet: CongViecCanChoTiecCuoi[] = [];
+  CongViecsDaChon: CongViecDaChon[] = [];
 
   ngOnInit(): void {
     this.loadCongViecs();
     this.loadNhanViens();
+    this.loadCongViecsCanThiet();
+  }
+
+  loadCongViecsCanThiet(): void {
+    if (this.wedding.maTiecCuoi != 0) {
+      this.http.get<any[]>(`http://localhost:8081/api/chitietdichvu/thongke/congviec/${this.wedding.maTiecCuoi}`).subscribe({
+        next: (data) => {
+          this.CongViecsCanThiet = data;
+          this.CongViecsDaChon = data.map(cv => ({...cv, phanCong: 0}))
+          console.log('Dữ liệu công việc cần thiết:', data);
+        },
+        error: (err) => {
+          console.error('Lỗi khi lấy công việc cần thiết:', err);
+        }
+      });
+    }
   }
 
   loadCongViecs(): void {
     this.http.get<any[]>('http://localhost:8081/api/congviec').subscribe({
       next: (data) => {
-        this.congViecs = data.map(cv => ({ ...cv, check: false }));
-        console.log('Dữ liệu công việc:', data);
+        this.congViecs = data
+        console.log('Dữ liệu công việc:', this.congViecs);
       },
       error: (err) => {
         console.error('Lỗi khi lấy công việc:', err);
@@ -274,9 +132,10 @@ export class AssignStaffComponent implements OnInit{
   loadNhanViens(): void {
     this.http.get<any[]>('http://localhost:8081/api/nhanvien/chua-phan-cong').subscribe({
       next: (data) => {
-        this.nhanViens = data;
-        console.log('Dữ liệu nhân viên chưa phân công:', data);
+        this.nhanViens = data.map(cv => ({ ...cv, phanCong: false }));
+        // console.log('Dữ liệu nhân viên chưa phân công:', data);
         this.filterNhanVien = this.nhanViens.filter(nv => nv.maCongViec === +this.selectedJob);
+        console.log('Dữ liệu toàn bộ nv:', this.nhanViens);
         console.log("load du lieu da loc",this.filterNhanVien)
       },
       error: (err) => {
@@ -286,7 +145,40 @@ export class AssignStaffComponent implements OnInit{
   }
 
   onSelectedJobChange() {
+    // this.selectedJob = 
     this.filterNhanVien = this.nhanViens.filter(nv => nv.maCongViec === +this.selectedJob);
     console.log("Dữ liệu nhân viên theo nghề: ", this.selectedJob, this.filterNhanVien);
   }
+
+  // Xu ly xac nhan
+  @Output() onBackStep1 = new EventEmitter<void>();
+
+  
+
+  comfirmAssign() {
+    const isConfirmed = window.confirm('Bạn có chắc muốn xác nhận và lưu thông tin phân công không?');
+    if (isConfirmed) {
+      this.saveDataAndGoHome();
+    }
+  }
+
+  saveDataAndGoHome() {
+    console.log('Go Home');
+    this.saveAssignInfo();
+    window.alert('Lưu thông tin phân công thành công');
+    this.onBackStep1.emit();
+  }
+
+  saveAssignInfo() {
+    const selectedNhanVien = this.nhanViens.filter(nv => nv.check).map(nv => nv.maNhanVien);
+
+    if (this.wedding.maTiecCuoi != 0 && selectedNhanVien)
+      selectedNhanVien.forEach(maNhanVien => {
+        const params = new HttpParams()
+          .set('maNhanVien', maNhanVien)
+          .set('maTiecCuoi', this.wedding.maTiecCuoi);
+        this.http.post('http://localhost:8081/api/phancong', null, { params }).subscribe();
+      });
+  }
+
 }

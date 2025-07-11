@@ -1,10 +1,10 @@
-<div class="item-list-container">
+<div class="item-list-container" (click)="onComponentClick($event)">
     <h1>{{listName}}</h1>
     <div class="action-btn-container">
         <button (click)="showLayout('add', type)">
             <i class="bi bi-plus-lg"></i>
         </button>
-        <button (click)="delete.emit()">
+        <button (click)="onDelete()">
             <i class="bi bi-trash3-fill"></i>
         </button>
         <button (click)="showLayout('edit', type)">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="table-container">
-        <table>
+        <table #dataTable>
             <thead>
                 <tr>
                     <th *ngFor="let headData of headDatas">{{headData}}</th>
@@ -69,11 +69,17 @@
             *ngIf="typeLayout === 'hall'"
             [type]="typeAction"
             (back)="exitLayout()"
+            [dataEdit]="selectedItem"
+            (insertData)="insert.emit($event)"
+            (updateData)="onUpdate($event)"
         ></app-action-hall>
         <app-action-dish 
             *ngIf="typeLayout === 'dish'"
             [type]="typeAction"
             (back)="exitLayout()"
+            [dataEdit]="selectedItem"
+            (insertData)="insert.emit($event)"
+            (updateData)="onUpdate($event)"
         ></app-action-dish>
         <app-action-service
             *ngIf="typeLayout === 'service'"
@@ -84,11 +90,17 @@
             *ngIf="typeLayout === 'shift'"
             [type]="typeAction"
             (back)="exitLayout()"
+            [dataEdit]="selectedItem"
+            (insertData)="insert.emit($event)"
+            (updateData)="onUpdate($event)"
         ></app-action-shift>
         <app-action-job
             *ngIf="typeLayout === 'job'"
             [type]="typeAction"
             (back)="exitLayout()"
+            [dataEdit]="selectedItem"
+            (insertData)="insert.emit($event)"
+            (updateData)="onUpdate($event)"
         ></app-action-job>
         <app-action-staff
             *ngIf="typeLayout === 'staff'"

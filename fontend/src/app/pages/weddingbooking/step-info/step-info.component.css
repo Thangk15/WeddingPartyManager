@@ -58,3 +58,8 @@ label {
 #wedding-info > div > div {
     margin-top: 10px;
 }
+
+.input-error {
+  border-color: red;
+  color: red;
+}

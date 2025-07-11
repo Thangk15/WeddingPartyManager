@@ -29,6 +29,7 @@ interface TiecCuoiThongTinDonGianDTO {
 })
 
 export class ChoosePartyComponent {
+  @Input() currentStep: number = 2;
   today: string = formatDateToDDMMYYYY(new Date());
   constructor(private http: HttpClient) {}
   danhSachTiecCuoi: TiecCuoiThongTinDonGianDTO[] = [];
@@ -56,7 +57,6 @@ export class ChoosePartyComponent {
     if (to < minToDate) {
       this.selectedToDate = formatDateToDDMMYYYY(minToDate);
     }
-
     this.loadData();
   }
 
@@ -82,26 +82,37 @@ export class ChoosePartyComponent {
     ).subscribe(data => {
       this.danhSachTiecCuoi = data;
       console.log('Dữ liệu:', data);
+      if (this.danhSachTiecCuoi.length === 0)
+        this.selectedItem = null;
     });
+
   }
 
 //   
   @Output() back = new EventEmitter<void>();
+  @Output() onBackHome = new EventEmitter<void>();
 
   onBack() {
     this.back.emit();
   }
 
 //   Xu ly khi click phan cong
-  showAssignForm = false;
 
   onAssignClick() {
-    this.showAssignForm = true;
+    if (this.selectedItem)
+      this.currentStep = 3;
+    else {
+      window.alert('Bạn chưa chọn tiệc cưới để phân công');
+    }
   }
   // Xử lý out assignForm
 
   outAssignForm() {
-    this.showAssignForm = false;
+    this.currentStep = 2;
+  }
+
+  onBackStep1() {
+    this.onBackHome.emit();
   }
 
   // Xử lý chọn row

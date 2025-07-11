@@ -7,6 +7,9 @@
                 id="groom-name" 
                 type="text" 
                 formControlName="groomName"
+                [ngClass]="{
+                    'input-error': form.get('customerInfo.groomName')?.invalid && form.get('customerInfo.groomName')?.touched
+                }"
             />
         </div>
         <div>
@@ -15,6 +18,9 @@
                 id="bride-name" 
                 type="text" 
                 formControlName="brideName"
+                [ngClass]="{
+                    'input-error': form.get('customerInfo.brideName')?.invalid && form.get('customerInfo.brideName')?.touched
+                }"
             />
         </div>
         <div>
@@ -26,6 +32,9 @@
                 maxlength="11"
                 inputmode="numeric"
                 formControlName="phoneNumber"
+                [ngClass]="{
+                    'input-error': form.get('customerInfo.phoneNumber')?.invalid && form.get('customerInfo.phoneNumber')?.touched
+                }"
             />
         </div>
         

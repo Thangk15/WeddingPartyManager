@@ -3,7 +3,7 @@
   <div id="category-list">
     <a
       class="item-container"
-      *ngFor="let item of items"
+      *ngFor="let item of items()"
       (click)="onSelect(item)"
     >
       <img 
@@ -21,14 +21,19 @@
 </div>
 
 <!-- Giao diện chi tiết -->
-<div class="item-list-container">
+<ng-container class="item-list-container" *ngIf="selectedItem">
   <app-item-list
     [type]="selectedItem.id"
     [listName]="selectedItem.title"
     [nameIcon]="selectedItem.icon"
-    *ngIf="selectedItem"
+    [insertStatus]="insertStatus"
+    [updateStatus]="updateStatus"
     (back)="goBack()"
     [headDatas]="selectedItem.header"
     [datas]="selectedItem.data"
+    (insert)="handleInsert($event)"
+    (delete)="handleDelete($event)"
+    (update)="handleUpdate($event)"
+    (refresh)="refreshSelectedItemData()"
   ></app-item-list>
-</div>
+</ng-container>

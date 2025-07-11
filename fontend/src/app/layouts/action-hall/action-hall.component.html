@@ -4,21 +4,21 @@
     <input 
         id="hallName" 
         type="text"
-        [(ngModel)]="enteredHallName"
+        [(ngModel)]="model.tenSanh"
     />
     <label for="minPrice">Đơn giá tối thiểu</label>
     <input 
         id="minPrice" 
         type="number"
         min="0"
-        [(ngModel)]="enteredMinPrice"
+        [(ngModel)]="model.donGiaBanToiThieu"
     />
     <label for="maxTableQuantity">Số lượng bàn tối đa</label>
     <input 
         id="maxTableQuantity" 
         type="number"
         min="10"
-        [(ngModel)]="enteredMaxTableQuantity"
+        [(ngModel)]="model.soLuongBanToiDa"
     />
 
     <div class="option-btn">

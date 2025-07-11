@@ -1,4 +1,4 @@
-<div id="choose-party-container" *ngIf="!showAssignForm">
+<div id="choose-party-container" *ngIf="currentStep === 2">
     <div id="calendar-container">
         <app-calendar
             [selectedDate]="selectedFromDate"
@@ -56,7 +56,8 @@
 </div>
 
 <app-assign-staff 
-    *ngIf="showAssignForm"
-    [data]="selectedItem"
+    *ngIf="currentStep === 3"
+    [wedding]="selectedItem"
     (backChooseParty)="outAssignForm()"
+    (onBackStep1)="onBackStep1()"
 ></app-assign-staff>

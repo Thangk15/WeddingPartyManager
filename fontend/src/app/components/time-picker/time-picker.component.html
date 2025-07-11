@@ -1,12 +1,17 @@
-<mat-form-field class="time-picker-form" appearance="fill">
+<mat-form-field appearance="fill">
   <mat-label>Chọn giờ</mat-label>
   <input
     matInput
-    [matTimepicker]="picker"
-    [value]="time"
-    (input)="onTimeChanged($event)"
-    placeholder="Giờ"
-  />
-  <mat-timepicker-toggle matSuffix [for]="picker"></mat-timepicker-toggle>
-  <mat-timepicker #picker></mat-timepicker>
+    [ngxTimepicker]="picker"
+    [(ngModel)]="time"
+    readonly
+    placeholder="HH:mm" />
+
 </mat-form-field>
+
+<!-- Component Timepicker -->
+<ngx-material-timepicker
+  #picker
+  [format]="24"
+  (timeSet)="onTimeChanged($event)">
+</ngx-material-timepicker>

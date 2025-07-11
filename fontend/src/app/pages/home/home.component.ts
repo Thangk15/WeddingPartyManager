@@ -27,7 +27,7 @@ interface SoLuongTiecTheoThang {
 })
 
 export class HomeComponent {
-    @Output() clickedBtn: boolean = false;
+    currentStep = 1;
     data: SoLuongTiecTheoThang[] = [];
     labels: string[] = [];
     values: number[] = [];
@@ -50,12 +50,12 @@ export class HomeComponent {
         this.getThongKeTheoThang(currentYear);
     }
 
-    setClickedBtn() {
-        this.clickedBtn = true;
+    clickedBtn() {
+        this.currentStep = 2;
     }
 
     goBack() {
-        this.clickedBtn = false;
+        this.currentStep = 1;
     }
 
     getThongKeTheoThang(nam: number) {
