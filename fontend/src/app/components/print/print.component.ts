@@ -47,8 +47,6 @@ export class PrintComponent implements OnChanges{
     const amountChanged = changes['amountEntered'];
     const billChanged = changes['totalBill'];
     const dataChanged = changes['weddingData'];
-
-    // Kiểm tra nếu có dữ liệu wedding và đủ thông tin thanh toán
     if (this.weddingData?.maTiecCuoi && (amountChanged || billChanged)) {
       this.changeAmount = this.amountEntered - this.totalBill;
     }
@@ -64,30 +62,12 @@ export class PrintComponent implements OnChanges{
   private router = inject(Router);
 
   closeComponent() {
-    // this.close.emit();
     this.router.navigate(['/home']);
   }
 
   printAgain() {
     window.print();
   }
-
-  // data
-
-  // data = {
-  //   weddingId: 'TC0001',
-  //   billDate: new Date(),
-  //   userName: 'nguyenngocthang',
-  //   groomName: 'Le Tan Thuan',
-  //   brideName: 'Huynh Tiet My',
-  //   phoneNumber: '0913987213',
-  //   WeddingDate: '01/07/2025',
-  //   weddingTime: '11:00:00',
-  //   tableCount: 20,
-  //   hallName: 'Sảnh hiện đại',
-  //   reserveTableCount: 1,
-  //   tablePrice: 4000000,
-  // }
 
   services = [
     {
@@ -115,7 +95,6 @@ export class PrintComponent implements OnChanges{
   ]
 
   servicePriceTotal = this.services.reduce((sum, service) => sum + service.total, 0);
-
   formatDate(str: string) {
     return formatDateFromDB(str);
   }

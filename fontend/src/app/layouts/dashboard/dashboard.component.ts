@@ -14,13 +14,6 @@ export class DashboardComponent {
     userName = '';
     role = '';
     constructor(private authService: AuthService, private router: Router) {
-        // const navigation = this.router.getCurrentNavigation();
-        // const state = navigation?.extras.state as { userName: string; role: string };
-
-        // if (state) {
-        // this.userName = state.userName;
-        // this.role = state.role;
-        // }
     }
 
     isCurrentNav(path: string): boolean {

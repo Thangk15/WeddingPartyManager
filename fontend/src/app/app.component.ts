@@ -5,7 +5,7 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DashboardComponent, RouterOutlet],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

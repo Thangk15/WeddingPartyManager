@@ -11,16 +11,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './step-menu.component.css'
 })
 export class StepMenuComponent {
-
-
-
-
-  
-
   dishTypes = ['Khai vị', 'Món chính', 'Tráng miệng']
-
   selectedType = this.dishTypes[0];
-
   dishs = [
     {
       id: 'MA0001',

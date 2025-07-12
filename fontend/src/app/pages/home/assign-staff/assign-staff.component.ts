@@ -54,7 +54,6 @@ interface TiecCuoi {
 export class AssignStaffComponent implements OnInit{
   @Input() wedding: any;
 
-  // Xử lý dữ liệu bảng
   selectedJob: number = 1;
 
   onCheckboxChange(isChecked: boolean, key: number, jobId: number) {
@@ -62,25 +61,21 @@ export class AssignStaffComponent implements OnInit{
     const newStaff = this.filterNhanVien.find(item => item.maNhanVien === key);
     const listNhanVienDaChon = this.nhanViens.find(item => item.maNhanVien === key);
     if (newStaff) {
-      newStaff.check = isChecked; // Gán trực tiếp theo trạng thái checkbox
+      newStaff.check = isChecked;
       
     }
     if (listNhanVienDaChon)
       listNhanVienDaChon.check = isChecked;
     
     var count = this.filterNhanVien.filter(item =>item.check).length;
-    // console.log("Số nhân viên đã chọn cho công việc này: ", count);
-    // console.log("ds cong viec da chon: ", this.CongViecsDaChon);
     const congViec = this.CongViecsDaChon.find(item => item.maCongViec === Number(jobId));
     if (congViec) {
       congViec.phanCong = count;
-      // console.log("Dữ liệu công việc đã chọn: ", congViec);
     }
     console.log("Dữ liệu công việc đã chọn: ", congViec);
 
   }
 
-  // Xử lý btn
   constructor(private router: Router, private http: HttpClient) {}
   @Output() backChooseParty = new EventEmitter<void>();
 
@@ -88,7 +83,6 @@ export class AssignStaffComponent implements OnInit{
     console.log('Go Back');
     this.backChooseParty.emit();
   }
-  // Xử lý data Cong Viec
 
   congViecs: CongViec[] = [];
   nhanViens: NhanVien[] = [];
@@ -133,7 +127,6 @@ export class AssignStaffComponent implements OnInit{
     this.http.get<any[]>('http://localhost:8081/api/nhanvien/chua-phan-cong').subscribe({
       next: (data) => {
         this.nhanViens = data.map(cv => ({ ...cv, phanCong: false }));
-        // console.log('Dữ liệu nhân viên chưa phân công:', data);
         this.filterNhanVien = this.nhanViens.filter(nv => nv.maCongViec === +this.selectedJob);
         console.log('Dữ liệu toàn bộ nv:', this.nhanViens);
         console.log("load du lieu da loc",this.filterNhanVien)
@@ -145,15 +138,11 @@ export class AssignStaffComponent implements OnInit{
   }
 
   onSelectedJobChange() {
-    // this.selectedJob = 
     this.filterNhanVien = this.nhanViens.filter(nv => nv.maCongViec === +this.selectedJob);
     console.log("Dữ liệu nhân viên theo nghề: ", this.selectedJob, this.filterNhanVien);
   }
 
-  // Xu ly xac nhan
   @Output() onBackStep1 = new EventEmitter<void>();
-
-  
 
   comfirmAssign() {
     const isConfirmed = window.confirm('Bạn có chắc muốn xác nhận và lưu thông tin phân công không?');

@@ -6,7 +6,6 @@
     padding: 40px;
     border: 2px solid #4b63b7;
     border-radius: 20px;
-    /* overflow: visible !important; */
 }
 
 h2 {
@@ -27,11 +26,8 @@ input, select, option {
     padding-left: 10px;
     font-size: 18px;
     height: 30px;
-    /* z-index: 1000;
-    position: relative; */
 }
 
-/* btn */
 .option-btn {
     display: flex;
     flex-direction: row;

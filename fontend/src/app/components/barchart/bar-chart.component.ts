@@ -21,24 +21,20 @@ export class BarChartComponent implements OnChanges {
   chart: Chart | null = null;
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Nếu có thay đổi labels hoặc data, thì vẽ lại biểu đồ
     if (changes['labels'] || changes['data']) {
       this.drawChart();
     }
   }
 
   drawChart() {
-  // Nếu có biểu đồ cũ thì hủy đi
   if (this.chart) {
     this.chart.destroy();
   }
 
-  // 🔥 ÉP canvas có đúng width/height trước khi vẽ
   const canvas = this.barCanvas.nativeElement as HTMLCanvasElement;
   canvas.width = parseInt(this.width.replace('px', '')) || 500;
   canvas.height = parseInt(this.height.replace('px', '')) || 400;
 
-  // Vẽ biểu đồ mới
   this.chart = new Chart(canvas, {
     type: 'bar',
     data: {
@@ -57,8 +53,8 @@ export class BarChartComponent implements OnChanges {
           display: true,
           text: this.title,
           font: {
-            size: 24,      // 👈 Font size tiêu đề (đổi tùy ý)
-            weight: 'bold' // 👈 Có thể thêm in đậm
+            size: 24,
+            weight: 'bold'
           },
         },
         legend: {

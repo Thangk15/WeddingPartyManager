@@ -19,15 +19,13 @@ import { NgxMaterialTimepickerComponent, NgxMaterialTimepickerModule } from 'ngx
   ]
 })
 export class TimePickerComponent {
-  @Input() time: string = ''; // định dạng HH:mm
+  @Input() time: string = '';
   @Output() timeChange = new EventEmitter<string>();
   @ViewChild('picker') picker!: NgxMaterialTimepickerComponent;
 
   onTimeChanged(newTime: string): void {
     this.time = newTime;
     this.timeChange.emit(newTime);  
-
-    // ✅ Force close
     this.picker?.close?.();
   }
 }

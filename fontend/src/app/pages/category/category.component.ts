@@ -64,11 +64,9 @@ export type Item<K extends ItemID = ItemID> = {
     styleUrl: './category.component.css',
 })
 
-
-
 export class CategoryComponent implements OnInit{
-    itemsName = [/* danh sách item như hiện tại */];
-    selectedItem: any = null; // hoặc kiểu cụ thể nếu có
+    itemsName = [];
+    selectedItem: any = null;
 
 
     onSelect(item: any) {
@@ -266,10 +264,6 @@ export class CategoryComponent implements OnInit{
         }
     }
 
-
-
-    
-
     refreshSelectedItemData() {
         if (!this.selectedItem) return;
         const itemId = this.selectedItem.id as ItemID;
@@ -283,10 +277,7 @@ export class CategoryComponent implements OnInit{
                 item.id === itemId ? { ...item, data: mappedData } : item
             )
             );
-
             this.selectedItem = this.items().find(item => item.id === itemId) ?? null;
         });
     }
-
-
 }

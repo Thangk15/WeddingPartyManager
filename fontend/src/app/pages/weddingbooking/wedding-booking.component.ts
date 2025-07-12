@@ -26,7 +26,6 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Va
 })
 
 export class WeddingBookingComponent  implements OnInit {
-    // Xử lý formsGroup
     form!: FormGroup;
 
     constructor(private fb: FormBuilder) {}
@@ -113,11 +112,8 @@ export class WeddingBookingComponent  implements OnInit {
         }
     }
 
-    // Xử lý step service
     get selectedServices(): FormArray {
         return this.form.get('selectedServices') as FormArray;
-        // Hoặc nếu muốn chắc ăn hơn:
-        // return this.form.get('selectedServices') as FormArray ?? this.fb.array([]);
     }
 
     get selectedServiceValues(): any[] {

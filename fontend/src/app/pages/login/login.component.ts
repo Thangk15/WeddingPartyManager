@@ -5,14 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  standalone: true, // 👈 PHẢI có dòng này khi bạn import module thủ công
+  standalone: true,
   selector: 'app-login',
   imports: [
-    FormsModule,         // nếu dùng [(ngModel)]
-    HttpClientModule     // để dùng HttpClient (AuthService)
+    FormsModule,
+    HttpClientModule
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] // sửa lại từ `styleUrl` → `styleUrls`
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   username = '';
@@ -36,7 +36,5 @@ export class LoginComponent {
         alert('Đăng nhập thất bại: ' + err.error);
       }
     });
-
-    
   }
 }

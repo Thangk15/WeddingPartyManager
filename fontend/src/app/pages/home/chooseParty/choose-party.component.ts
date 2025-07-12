@@ -7,7 +7,7 @@ import { HttpParams, HttpClient } from "@angular/common/http";
 
 interface TiecCuoiThongTinDonGianDTO {
   maTiecCuoi: number;
-  ngayDaiTiec: string;        // định dạng: "dd/MM/yyyy" hoặc ISO nếu để mặc định
+  ngayDaiTiec: string; 
   tenCa: string;
   maSanh: number;
   soLuongBan: number;
@@ -50,7 +50,6 @@ export class ChoosePartyComponent {
     const from = parseDate(newFromDate);
     const to = parseDate(this.selectedToDate);
 
-    // Tính khoảng cách từ from đến to
     const minToDate = new Date(from);
     minToDate.setDate(minToDate.getDate() + 7);
 
@@ -96,8 +95,6 @@ export class ChoosePartyComponent {
     this.back.emit();
   }
 
-//   Xu ly khi click phan cong
-
   onAssignClick() {
     if (this.selectedItem)
       this.currentStep = 3;
@@ -105,7 +102,6 @@ export class ChoosePartyComponent {
       window.alert('Bạn chưa chọn tiệc cưới để phân công');
     }
   }
-  // Xử lý out assignForm
 
   outAssignForm() {
     this.currentStep = 2;
@@ -114,8 +110,6 @@ export class ChoosePartyComponent {
   onBackStep1() {
     this.onBackHome.emit();
   }
-
-  // Xử lý chọn row
   
   selectedItem: any = null;
 

@@ -42,7 +42,6 @@ interface Wedding {
   ],
   templateUrl: './pay-bills.component.html',
   styleUrl: './pay-bills.component.css',
-  // encapsulation: ViewEncapsulation.None,
 })
 export class PayBillsComponent implements OnChanges{
   @Input() type: string = '';
@@ -88,29 +87,12 @@ export class PayBillsComponent implements OnChanges{
     return dayDiff;
   }
 
-  // totalBill(): number {
-  //   if (this.daysBetween >= 7 && this.type === "cancel")
-  //     return 0;
-  //   else
-  //     return this.weddingData.conLai;
-  // }
-
   depositRate = 50;
-
-  // Xử lý go back
   @Output() back = new EventEmitter<void>();
 
   onBack() {
     this.back.emit();
   }
-
-  //Xử lý in
-  // constructor(private router: Router) {}
-
-  // printBooking(id: string) {
-  //   this.router.navigate(['booking/print', id]);
-  // }
-
 
   showPaymentBill = false;
 

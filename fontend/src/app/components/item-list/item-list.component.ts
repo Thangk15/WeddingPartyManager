@@ -95,7 +95,6 @@ export class ItemListComponent implements OnInit {
 
   @Input() datas: object[] = [];
 
-  //Logic click btn quay lại
   @Output() back = new EventEmitter<void>();
   @Output() insert = new EventEmitter<{ key: string, data: any }>();
   @Output() update = new EventEmitter<{ key: string, id: number ,data: any }>();
@@ -116,7 +115,6 @@ export class ItemListComponent implements OnInit {
       return false;
   }
 
-  // action btn 
   showLayout(type: string, name: string) {
     console.log('🛠️ showLayout:', type, name);
     if (type === 'edit' && !this.selectedItem) {

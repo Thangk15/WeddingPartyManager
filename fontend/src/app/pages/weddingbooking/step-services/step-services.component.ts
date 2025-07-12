@@ -98,7 +98,6 @@ export class StepServicesComponent {
     },
   ];
 
-  // Kiểm tra món đã chọn
   isChecked(id: string): boolean {
     return this.selectedServices.value.some((d: any) => d.id === id);
   }
@@ -128,12 +127,9 @@ export class StepServicesComponent {
 
   onQuantityChange(service: any, quantity: number) {
     const index = this.selectedServices.value.findIndex((d: any) => d.id === service.id);
-
     if (quantity <= 0 && index !== -1) {
-      // Số lượng về 0 thì bỏ check
       this.selectedServices.removeAt(index);
     } else if (quantity > 0 && index === -1) {
-      // Auto check nếu tăng từ 0
       this.selectedServices.push(this.fb.group({
         id: [service.id],
         name: [service.name],

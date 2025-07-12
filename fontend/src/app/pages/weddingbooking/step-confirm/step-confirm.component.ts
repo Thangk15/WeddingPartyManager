@@ -15,7 +15,6 @@ export class StepConfirmComponent {
   toNumber(value: any): number {
     return Number(value) || 0;
   }
-
   @Input() form!: FormGroup;
   @Input() selectedServices!: FormArray;
 
@@ -47,7 +46,6 @@ export class StepConfirmComponent {
   }
 
   get totalBill(): number {
-    // var total = 
     return this.totalTablePrice + this.totalServicesPrice;
   }
 

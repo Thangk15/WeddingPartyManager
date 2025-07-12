@@ -75,45 +75,6 @@ export class BookingDetailComponent implements OnChanges{
     'STT', 'Tên dịch vụ', 'SL', 'Đơn giá', 'Thành tiền'
   ]
 
-  // services = [
-  //   {
-  //     name: 'phục vụ',
-  //     count: 2,
-  //     price: '1.000.000',
-  //     total: '2.000.000'
-  //   },
-  //   {
-  //     name: 'phục vụ',
-  //     count: 2,
-  //     price: '1.000.000',
-  //     total: '2.000.000'
-  //   },
-  //   {
-  //     name: 'phục vụ',
-  //     count: 2,
-  //     price: '1.000.000',
-  //     total: '2.000.000'
-  //   },
-  //   {
-  //     name: 'phục vụ',
-  //     count: 2,
-  //     price: '1.000.000',
-  //     total: '2.000.000'
-  //   },
-  //   {
-  //     name: 'phục vụ',
-  //     count: 2,
-  //     price: '1.000.000',
-  //     total: '2.000.000'
-  //   },
-  //   {
-  //     name: 'phục vụ',
-  //     count: 2,
-  //     price: '1.000.000',
-  //     total: '2.000.000'
-  //   },
-  // ]
-
   constructor(private http: HttpClient) {};
 
   services: Service[] = [];
@@ -150,7 +111,6 @@ export class BookingDetailComponent implements OnChanges{
     return Number(item.gia)*Number(item.soLuong);
   }
 
-  // handler on back
   @Output() back = new EventEmitter<void>();
 
   onBack() {

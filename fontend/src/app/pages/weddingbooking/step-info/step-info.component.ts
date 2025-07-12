@@ -19,14 +19,9 @@ export class StepInfoComponent {
   hallDatas = [
     'Cung điện ánh sách', 'Rừng nguyên sinh', 'Lễ thành hôn'
   ];
-  // selectedHall = '';
-  // selectedTime = '';
-  // phoneNumber = null;
-  // tableCount = 0;
   times = [
     '11:00:00 - 13:00:00', '18:00:00 - 21:00:00'
   ]
-
   formatDateToDDMMYYYY(date: Date): string {
     const d = new Date(date); // đảm bảo là Date
     const day = String(d.getDate()).padStart(2, '0');
@@ -38,13 +33,10 @@ export class StepInfoComponent {
   parseDate(value: string | Date | null): Date | null {
     if (!value) return null;
     if (value instanceof Date) return value;
-
-    // Giả sử định dạng là "dd/mm/yyyy"
     const [day, month, year] = value.split('/');
     return new Date(Number(year), Number(month) - 1, Number(day));
   }
 
-  // Xu ly formsGroup
   @Input() form!: FormGroup;
 
   onWeddingDateChange(date: Date): void {

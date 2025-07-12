@@ -28,18 +28,14 @@ import { formatDateToDDMMYYYY} from '../format-date/format-date.component';
   templateUrl: './calendar.component.html',
 })
 export class CalendarComponent implements OnChanges {
-  /** Chuỗi ngày dưới dạng "dd/mm/yyyy" */
   @Input() selectedDate: string | null = null;
-  /** Xuất ra cũng là "dd/mm/yyyy" */
   @Output() selectedDateChange = new EventEmitter<string>();
 
   @Input() minDateStr: string | null = null;
   minDate: Date | null = null;
 
-  /** Model thực tế cho Datepicker */
   dateModel: Date | null = null;
 
-  /** Nếu cần disable calendar */
   @Input() disabled: boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {

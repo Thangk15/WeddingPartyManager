@@ -34,7 +34,7 @@ export class HomeComponent {
     selectedDate: string = formatDateToDDMMYYYY(new Date());
 
     extractYear(dateStr: string): number {
-        return Number(dateStr.split('/')[2]); // vì chuỗi đã là "dd/MM/yyyy"
+        return Number(dateStr.split('/')[2]);
     }
 
     onDateSelected(dateStr: string) {
@@ -67,7 +67,6 @@ export class HomeComponent {
             soLuong: 0
         }));
 
-        // Gộp dữ liệu từ API vào mảng mặc định
         res.forEach(item => {
             const index = monthMap.findIndex(m => m.thang === item.thang);
             if (index !== -1) {
@@ -75,7 +74,6 @@ export class HomeComponent {
             }
         });
 
-        // Gán labels và values đầy đủ 12 tháng
         this.labels = monthMap.map(m => `Tháng ${m.thang}`);
         this.values = monthMap.map(m => m.soLuong);
 

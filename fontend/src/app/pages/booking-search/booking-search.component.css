@@ -21,8 +21,6 @@ h1 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /* height: 40px; */
-    /* width: 300px; */
     padding: 5px 0;
 }
 

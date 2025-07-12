@@ -60,7 +60,7 @@ interface Hall {
 
 export class BookingSearchComponent implements OnInit{
   constructor(private http: HttpClient) {};
-  selectedWeddingDate: string=''; // hoặc null nếu muốn để trống
+  selectedWeddingDate: string='';
 
   onDateChanged(newDate: string) {
     this.selectedWeddingDate = newDate;
@@ -85,80 +85,7 @@ export class BookingSearchComponent implements OnInit{
     'Ngày đãi tiệc', 'Giờ', 'Số lượng bàn', 'UserName'
   ]
 
-  // datas = [
-  //   {
-  //     weddingId: 'TC0004', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0001', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0002', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0004', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0001', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0002', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0004', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0001', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0002', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0004', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0001', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   },
-  //   {
-  //     weddingId: 'TC0002', hallName: 'Cung điện ánh sáng',
-  //     groomName: 'Nguyễn Thành Công', brideName: 'Lê Thị Yến Vi',
-  //     day: '26/03/2025', shift: '17:00:00', 
-  //     tableCount: 60, userName: 'letanthuan'
-  //   }
-  // ]
+
 
   weddingData: Wedding[] = [];
   filterWeddingData: Wedding[] = [];
@@ -230,7 +157,6 @@ export class BookingSearchComponent implements OnInit{
     this.searchWedding();
   }
 
-  // Xử lý chuyển trang xem chi tiết tiệc cưới
   clickedDetail: boolean = false;
   clickedPay: boolean = false;
   clickedCancel: boolean = false;
@@ -264,8 +190,6 @@ export class BookingSearchComponent implements OnInit{
         alert("Tiệc cưới đã và đang diễn ra, không thể đãi tiệc")
     }
   }
-
-
 
   goBack() {
     this.selectedItem = null;
